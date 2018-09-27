@@ -12,8 +12,12 @@ In general, lobpy can be run as
 Calibration to Lobster data
 
 Requires: 
-order book file, name format: TICKER_DATE_STARTTIMEINMS_ENDTIMEINMS_oderbook_NUMBEROFLEVELS.csv
-message file, name format: TICKER_DATE_STARTTIMEINMS_ENDTIMEINMS_message_NUMBEROFLEVELS.csv
+
+order book file, name format: 
+TICKER_DATE_STARTTIMEINMS_ENDTIMEINMS_oderbook_NUMBEROFLEVELS.csv
+
+message file, name format: 
+TICKER_DATE_STARTTIMEINMS_ENDTIMEINMS_message_NUMBEROFLEVELS.csv
 
 Please see lobsterdata.com for further details of file formatation
 
