@@ -41,4 +41,5 @@ E. g. running test data:
 
 
 
-© 2018 ETH Zurich, Marvin S. Mueller
+
+
