@@ -35,9 +35,9 @@ Test:
 > lobpy -t
 
 
-E. g. running test data:
+E. g. 
 
-> python3 -m lobpy -cd "TEST" "01-06-66" 34200000 36000000 34200000 36000000 10 10 10000 1000 1 1
+> python3 -m lobpy -cd "TICKER" "01-06-66" 34200000 36000000 34200000 36000000 10 10 10000 1000 1 1
 
 
 
