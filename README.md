@@ -1,7 +1,7 @@
 # lobpy
 Package for linear SPDE models of limit order books 
 
-This package provides limit order book models introduced in Cont, Mueller (2018), Stochastic PDE models of limit order book dynamics.
+This package provides limit order book models introduced in Cont, Mueller (2018, in preparation), Stochastic PDE models of limit order book dynamics.
 
 
 In general, lobpy can be run as
