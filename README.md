@@ -9,7 +9,7 @@ In general, lobpy can be run as
 > lobpy -cp/-cd args
 
 
-Calibration to Lobster data
+Calibration to Lobster data (see https://lobsterdata.com/)
 
 Requires: 
 
