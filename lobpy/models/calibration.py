@@ -402,15 +402,15 @@ class OrderVolumeCalibrator(ModelCalibrator):
         
         print("Start calibration in time frame: {}".format(self.calibratorid))
         
-        for ctr_now in range(num_timepoints_calib, len(data_bid), num_timepoints_recal):
+        for ctr_now in range(num_timepoints_calib-1, len(data_bid), num_timepoints_recal):
             
             # Calibrate 
             # time_now = time_start + (ctr_start + num_timepoints_calib) * time_discr
             self.calibrate(
                 time_start + ctr_now * time_discr,
                 time_discr,
-                data_bid[ctr_now - num_timepoints_calib:ctr_now:],
-                data_ask[ctr_now - num_timepoints_calib:ctr_now:]                    
+                data_bid[ctr_now - num_timepoints_calib+1:ctr_now+1:],
+                data_ask[ctr_now - num_timepoints_calib+1:ctr_now+1:]                    
             )
         return
 

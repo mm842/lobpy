@@ -224,6 +224,10 @@ class LOBSTERReader(OBReader):
             rowMES = next(messagedata)      # data are read as list of strings
             rowLOB = next(lobdata)        
             nexttime = float(rowMES[0])   # t(0)
+            if time_end < nexttime:
+                # In this case there are no entries in the file for the selected time interval. Array of 0s is returned
+                warnings.warn("The first entry in the data files is after the end of the selected time period. Arrays of 0s will be returned as mean.")
+                return mean[1::2], mean[0::2]            
             currprofile =  np.fromiter(rowLOB[1:(4*num_levels_calc + 1):2], np.float)    # parse to integer, extract bucket volumes only at t(0)
             if time_start <= nexttime:
                 flag = 1

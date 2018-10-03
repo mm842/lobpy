@@ -218,7 +218,7 @@ class LOBLinearTwoFactor(LOBLinear):
         sqdt = math.sqrt(dt)
         dw1t = sqdt * np.random.normal(size=num_tpoints)
         dw2t = sqdt * np.random.normal(size=num_tpoints)
-        rho_conv = math.sqrt(1- math.pow(self.rho,2))
+        rho_conv = math.sqrt(1 - math.pow(self.rho,2))
         (path_bid[0], path_ask[0]) = self.get_z0()
         for k in range(num_tpoints):
             path_bid[k+1] = path_bid[k] + self.dynamics_bid.nu * (self.dynamics_bid.mu - path_bid[k]) * dt + self.dynamics_bid.sigma * path_bid[k] * dw1t[k]

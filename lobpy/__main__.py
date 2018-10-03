@@ -46,7 +46,7 @@ if calibrate_profile:
     time_end_calc = int(sys.argv[7])
     num_levels_data = int(sys.argv[8])
     num_levels_calc = int(sys.argv[9])
-    num_intervals = int(sys.argv[10])
+    time_cal = int(sys.argv[10])
 
     lobh.calibrate_profile_lobster(
         ticker_str,
@@ -57,7 +57,7 @@ if calibrate_profile:
         time_end_calc,
         num_levels_data,
         num_levels_calc,
-        num_intervals
+        time_cal
     )
 elif calibrate_dynamics:
     ticker_str = sys.argv[2]

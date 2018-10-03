@@ -8,8 +8,6 @@ matplotlib.rcParams['text.latex.unicode'] = True
 
 
 
-import lobpy.datareader.orderbook as lob
-
 import lobpy.datareader.orderbook as lobr
 
 import lobpy.models.loblinear as lobm
