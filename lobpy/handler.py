@@ -14,7 +14,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-import lobpy.lobstertools.orderbook as lob
+import lobpy.datareader.orderbook as lob
 import lobpy.datareader.lobster as lobr
 import lobpy.models.loblinear as lobm
 import lobpy.models.loblineartools as lobt
