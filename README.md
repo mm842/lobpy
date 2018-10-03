@@ -1,7 +1,7 @@
 # lobpy
 Package for linear SPDE models of limit order books 
 
-This package provides limit order book models introduced in Cont, Mueller (2018), Stochastic PDE models of limit order book dynamics.
+This package provides limit order book models introduced in Cont, Mueller (2018, in preparation), Stochastic PDE models of limit order book dynamics.
 
 
 In general, lobpy can be run as
@@ -9,7 +9,7 @@ In general, lobpy can be run as
 > lobpy -cp/-cd args
 
 
-Calibration to Lobster data
+Calibration to data formatted eg as from https://lobsterdata.com/
 
 Requires: 
 
@@ -35,9 +35,9 @@ Test:
 > lobpy -t
 
 
-E. g. running test data:
+E. g. 
 
-> python3 -m lobpy -cd "TEST" "01-06-66" 34200000 36000000 34200000 36000000 10 10 10000 1000 1 1
+> python3 -m lobpy -cd "TICKER" "01-06-66" 34200000 36000000 34200000 36000000 10 10 10000 1000 1 1
 
 
 
