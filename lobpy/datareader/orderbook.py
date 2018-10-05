@@ -166,6 +166,25 @@ class OBReader():
         return dt, time_stamps, volume_bid, volume_ask
 
 
+    def _load_ordervolume_levelx(
+            self,            
+            level_x,
+            level
+    ):
+        ''' Extracts the volume of orders in the first num_level buckets at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. profile2vol_fct allows to specify how the volume should be summarized from the profile. Typical choices are np.sum or np.mean.
+
+        Note: Due to possibly large amount of data we iterate through the file instead of reading the whole file into an array. 
+        '''
+        raise FunctionCallError("OBReader._load_ordervolume", "This function is constructed as an interface and not thought for use in runtime. Please make sure the OBReader object has implemented _load_overvolume before usage.")
+        dt = .1
+        time_stamps = np.zeros(num_observations)
+        volume_bid = np.zeros(num_observations)
+        volume_ask = np.zeros(num_observations)
+        
+        return dt, time_stamps, volume_bid, volume_ask
+
+
+
     def _load_ordervolume_full(
             self,
             num_levels_calc,
@@ -178,14 +197,50 @@ class OBReader():
         '''
         pass;
         
+    def load_ordervolume_levelx(
+            self,
+            num_observations,
+            level_x,
+            write_output=False):
+        ''' Extracts the volume of orders in the level_xth buckets on bid and ask time at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. If num_obersvations is None, then the volume will be extracted on the time grid given in the data'''
+
+        print("Start extraction of order volume")
+
+        if level_x > self.num_levels:
+            raise DataRequestError("Level {} is not included in the data file.".format(str(level_x)))
+
+        dt, time_stamps, volume_bid, volume_ask = self._load_ordervolume_levelx(num_observations, level_x)
+
+        self.add_data("time_discr_ov", dt)
+
+        self.add_data("time_stamps_ov", time_stamps)
+        self.add_data("ordervolume_level-" + str(level_x) + "--bid", volume_bid)
+        self.add_data("ordervolume_level-" + str(level_x) + "--ask", volume_ask)
+
+        print("Extraction of order volume process finished.")
+
+        if write_output:
+            print("Writing output.")
+            outfilename =  self.create_filestr(TVOLPROC_FILE_ID , "level-"+str(level_x))
+            outfilename = ".".join((outfilename,'csv'))
+            with open(outfilename, 'w') as outfile:
+                wr = csv.writer(outfile)
+                wr.writerow(['Time in sec', 'Volume Bid', 'Volume Ask'])
+                wr.writerows(zip(time_stamps,
+                                 volume_bid,
+                                 volume_ask))
+
+        return dt, time_stamps, volume_bid, volume_ask
+
     def load_ordervolume(
             self,
             num_observations,
-            num_levels_calc_str="",            
+            num_levels_calc_str="",
             write_output=False):
         ''' Extracts the volume of orders in the first num_level buckets at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. If num_obersvations is None, then the volume will be extracted on the time grid given in the data'''
 
         print("Start extraction of order volume")
+
         num_levels_calc = self.num_levels
         if not(num_levels_calc_str == ""):
             num_levels_calc = int(num_levels_calc_str)        
@@ -215,13 +270,14 @@ class OBReader():
                                  volume_ask))
 
         return dt, time_stamps, volume_bid, volume_ask
+
     
     def load_volume_process(
             self,
             num_observations,
-            num_levels_calc_str="",            
+            num_levels_calc_str="",
             write_output=False):
-        ''' Extracts the volume of orders in the first num_level buckets at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. '''
+        ''' Extracts the volume of orders in the first num_level buckets at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file.  '''
         warnings.warn("Function load_volume_process will be removed soon. Please use load_ordervolume instead", FutureWarning)
         return self.load_ordervolume(num_observations, num_levels_calc_str, write_output)
 

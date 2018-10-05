@@ -369,6 +369,86 @@ class LOBSTERReader(OBReader):
 
         return dt, time_stamps, volume_bid, volume_ask
 
+
+    def _load_ordervolume_levelx(
+            self,            
+            num_observations,
+            level
+    ):
+        ''' Extracts the volume of orders in the first num_level buckets at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. profile2vol_fct allows to specify how the volume should be summarized from the profile. Typical choices are np.sum or np.mean.
+
+        Note: Due to possibly large amount of data we iterate through the file instead of reading the whole file into an array. 
+        '''
+
+
+        time_start_calc = float(self.time_start_calc) / 1000.
+        time_end_calc = float(self.time_end_calc) / 1000.
+        file_ended_line = int(num_observations)
+        ctr_time = 0
+        ctr_line = 0
+        ctr_obs = 0   # counter for the outer of the        
+        time_stamps, dt = np.linspace(time_start_calc, time_end_calc, num_observations, retstep = True)
+        volume_bid = np.zeros(num_observations)
+        volume_ask = np.zeros(num_observations)
+
+        # Ask level x is at position (x-1)*4 + 1, bid level x is at position (x-1)*4 + 3
+        x_bid = (int(level) - 1) * 4 + 3
+        x_ask = (int(level) - 1) * 4 + 1
+        
+
+        with open((self.lobfilename + '.csv')) as orderbookfile, open(self.msgfilename + '.csv') as messagefile:
+            # Read data from csv file
+            lobdata = csv.reader(orderbookfile, delimiter=',')
+            messagedata = csv.reader(messagefile, delimiter=',')        
+            # get first row
+            # data are read as list of strings
+            rowMES = next(messagedata)
+            rowLOB = next(lobdata)
+            # parse to float, extract bucket volumes only
+
+            #currprofile = np.fromiter(rowLOB[1:(4*num_levels_calc + 1):2], np.float)
+            currbid = float(rowLOB[x_bid])
+            currask = float(rowLOB[x_ask])
+            time_file = float(rowMES[0])
+
+            for ctr_obs, time_stamp in enumerate(time_stamps):
+                if (time_stamp < time_file):
+                    # no update of volume in the file. Keep processes constant
+                    if (ctr_obs > 0):
+                        volume_bid[ctr_obs] = volume_bid[ctr_obs-1] 
+                        volume_ask[ctr_obs] = volume_ask[ctr_obs-1]
+                    else:
+                        # so far no data available, raise warning and set processes to 0.
+                        warnings.warn("Data do not contain beginning of the monitoring period. Values set to 0.", RuntimeWarning)
+                        volume_bid[ctr_obs] = 0.
+                        volume_ask[ctr_obs] = 0.
+                    continue
+
+                while(time_stamp >= time_file):
+                    # extract order volume from profile
+                    volume_bid[ctr_obs] = currbid
+                    volume_ask[ctr_obs] = currask
+
+                    # read next line
+                    try:
+                        rowMES = next(messagedata)      # data are read as list of strings
+                        rowLOB = next(lobdata)                
+                    except StopIteration:
+                        if (file_ended_line == num_observations):
+                            file_ended_line = ctr_obs
+                        break
+                    # update currprofile and time_file
+                    #currprofile = np.fromiter(rowLOB[1:(4*num_levels_calc + 1):2], np.float)    # parse to integer, extract bucket volumes only
+                    currbid = float(rowLOB[x_bid])
+                    currask = float(rowLOB[x_ask])
+                    time_file = float(rowMES[0])                        
+
+        if (file_ended_line < num_observations):
+            warnings.warn("End of file reached. Number of values constantly extrapolated: %i"%(num_observations - file_ended_line), RuntimeWarning)
+
+
+        return dt, time_stamps, volume_bid, volume_ask
+    
     
 
     def _load_ordervolume_full(
