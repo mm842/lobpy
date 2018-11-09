@@ -87,7 +87,7 @@ TODO
 * **Rama Cont** 
 * **Marvin S. Mueller** 
 
-For the theoretical framework as well as results from the running code see [Cont, Keller-Ressel, Mueller (2018)](in preparation)
+For the theoretical framework as well as results from the running code see [Cont,Mueller (2018)](in preparation)
 
 
 ## License
