@@ -1,0 +1,472 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.models.loblinear</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.<a href="lobpy.models.html"><font color="#ffffff">models</font></a>.loblinear</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/loblinear.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/loblinear.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+&nbsp;<br>
+&nbsp;lobpy&nbsp;-&nbsp;model&nbsp;-&nbsp;lob_linear<br>
+&nbsp;Defines&nbsp;classes&nbsp;for&nbsp;linear&nbsp;SPDE&nbsp;models:<br>
+&nbsp;<br>
+&nbsp;<a href="#LOBLinearTwoFactor">LOBLinearTwoFactor</a>:&nbsp;Linear&nbsp;2-factor&nbsp;models<br>
+&nbsp;<br>
+&nbsp;<a href="#LOBLinearTwoFactorS">LOBLinearTwoFactorS</a>:&nbsp;Linear&nbsp;2-factor&nbsp;models&nbsp;with&nbsp;rescaling&nbsp;to&nbsp;fit&nbsp;the&nbsp;order&nbsp;book&nbsp;profile<br>
+&nbsp;<br>
+&nbsp;<a href="#OrderVolumeMeanRev">OrderVolumeMeanRev</a>:&nbsp;Reduced&nbsp;model&nbsp;for&nbsp;market&nbsp;depths&nbsp;or&nbsp;order&nbsp;book&nbsp;volume&nbsp;processe&nbsp;only.&nbsp;<br>
+&nbsp;<br>
+&nbsp;<a href="#MarketMeanRev">MarketMeanRev</a>:&nbsp;under&nbsp;construction&nbsp;-&nbsp;not&nbsp;fully&nbsp;implemented&nbsp;yet</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="csv.html">csv</a><br>
+<a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="scipy.optimize.html">scipy.optimize</a><br>
+<a href="warnings.html">warnings</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.loblinear.html#LOBLinear">LOBLinear</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.loblinear.html#LOBLinearTwoFactorS">LOBLinearTwoFactorS</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.models.loblinear.html#MarketMeanRev">MarketMeanRev</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.models.loblinear.html#OrderVolumeMeanRev">OrderVolumeMeanRev</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBLinear">class <strong>LOBLinear</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Linear&nbsp;SPDE&nbsp;models&nbsp;for&nbsp;Limit&nbsp;Order&nbsp;Books&nbsp;<br>
+So&nbsp;far,&nbsp;this&nbsp;class&nbsp;is&nbsp;not&nbsp;implemented&nbsp;but&nbsp;allows&nbsp;to&nbsp;implement&nbsp;subclasses.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"></td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBLinearTwoFactor">class <strong>LOBLinearTwoFactor</strong></a>(<a href="lobpy.models.loblinear.html#LOBLinear">LOBLinear</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Class&nbsp;of&nbsp;linear&nbsp;SPDE&nbsp;models&nbsp;for&nbsp;Limit&nbsp;Order&nbsp;Books<br>
+&nbsp;in&nbsp;which&nbsp;the&nbsp;density&nbsp;of&nbsp;order&nbsp;for&nbsp;the&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;is&nbsp;given&nbsp;as<br>
+&nbsp;u(t,x)&nbsp;=&nbsp;h(x)&nbsp;Z^{b/a}_t<br>
+&nbsp;where&nbsp;<br>
+&nbsp;h(x)&nbsp;=&nbsp;sin(x&nbsp;pi/pmax)&nbsp;*&nbsp;exp(-&nbsp;gamma_ask&nbsp;x),&nbsp;x&gt;0,<br>
+&nbsp;h(x)&nbsp;=&nbsp;sin(x&nbsp;pi/pmax)&nbsp;*&nbsp;exp(gamma_bid&nbsp;x),&nbsp;x&lt;0,<br>
+&nbsp;and<br>
+&nbsp;d&nbsp;Z^{b/a}_t&nbsp;=&nbsp;nu_bid/ask&nbsp;*&nbsp;(&nbsp;mu_bid/ask&nbsp;-&nbsp;Z_t^{b/a}&nbsp;)&nbsp;dt&nbsp;+&nbsp;sigma_bid/ask&nbsp;Z_t^{b/a}&nbsp;d&nbsp;W_t^{b/a}&nbsp;<br>
+&nbsp;and&nbsp;[W^b,&nbsp;W^a]_t&nbsp;=&nbsp;rho&nbsp;*&nbsp;t.&nbsp;This&nbsp;corresponds&nbsp;to&nbsp;the&nbsp;general&nbsp;situation&nbsp;where&nbsp;the&nbsp;driving&nbsp;noise&nbsp;process&nbsp;is&nbsp;a&nbsp;Brownian&nbsp;motion&nbsp;and&nbsp;the&nbsp;model&nbsp;is&nbsp;started&nbsp;in&nbsp;the&nbsp;first&nbsp;eigenspace.&nbsp;<br>
+&nbsp;<br>
+iHere,&nbsp;t&nbsp;describes&nbsp;the&nbsp;time&nbsp;point&nbsp;and&nbsp;x&nbsp;the&nbsp;price&nbsp;in&nbsp;the&nbsp;coordinates&nbsp;<br>
+&nbsp;x(p)&nbsp;=&nbsp;c_data_bid/ask&nbsp;*&nbsp;(S_t&nbsp;-&nbsp;p)&nbsp;/&nbsp;delta<br>
+&nbsp;where&nbsp;delta&nbsp;is&nbsp;the&nbsp;tick&nbsp;size,&nbsp;S_t&nbsp;is&nbsp;the&nbsp;mid&nbsp;price&nbsp;process&nbsp;and&nbsp;p&nbsp;is&nbsp;in&nbsp;{delta&nbsp;*&nbsp;k&nbsp;:&nbsp;k&nbsp;non-negative&nbsp;integer}.&nbsp;<br>
+&nbsp;<br>
+&nbsp;The&nbsp;<a href="#LOBLinearTwoFactor">LOBLinearTwoFactor</a>&nbsp;has&nbsp;the&nbsp;following&nbsp;attributes<br>
+&nbsp;<br>
+&nbsp;modelid&nbsp;...Model&nbsp;ID&nbsp;to&nbsp;identify&nbsp;the&nbsp;model&nbsp;e.g.&nbsp;when&nbsp;printing&nbsp;plots&nbsp;or&nbsp;saving&nbsp;data<br>
+&nbsp;profile_bid<br>
+&nbsp;profile_ask&nbsp;...LOBProfile&nbsp;objects&nbsp;which&nbsp;describe&nbsp;the&nbsp;shape&nbsp;of&nbsp;h&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side,&nbsp;repsectively<br>
+&nbsp;dynamics_bid<br>
+&nbsp;dynamics_ask&nbsp;...LOBDynamics&nbsp;objects&nbsp;which&nbsp;describe&nbsp;the&nbsp;dynamics&nbsp;governed&nbsp;by&nbsp;Z^b&nbsp;and&nbsp;Z^a<br>
+&nbsp;correlation_bid_ask&nbsp;...Correlation&nbsp;parameter&nbsp;rho&nbsp;between&nbsp;the&nbsp;Brownian&nbsp;motions&nbsp;driving&nbsp;the&nbsp;bid&nbsp;and&nbsp;ask&nbsp;dynamics<br>
+&nbsp;<br>
+&nbsp;If&nbsp;dynamics_bid.mu&nbsp;and&nbsp;dynamics_ask.mu&nbsp;are&nbsp;0,&nbsp;then&nbsp;this&nbsp;class&nbsp;corresponds&nbsp;to&nbsp;linear&nbsp;homogeneous&nbsp;models&nbsp;discussed&nbsp;in&nbsp;Section&nbsp;3.&nbsp;When&nbsp;mu&nbsp;!=&nbsp;0,&nbsp;then&nbsp;we&nbsp;are&nbsp;in&nbsp;the&nbsp;linear&nbsp;inhomgeneous&nbsp;/&nbsp;mean-reverting&nbsp;situation&nbsp;in&nbsp;Section&nbsp;4.&nbsp;<br>
+&nbsp;<br>
+&nbsp;---------<br>
+&nbsp;fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modelid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identifier&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;profile_bid:&nbsp;&nbsp;&nbsp;&nbsp;bid&nbsp;profile,&nbsp;LOBProfile&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;profile_ask:&nbsp;&nbsp;&nbsp;&nbsp;ask&nbsp;profile,&nbsp;LOBProfile&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynamics_bid:&nbsp;&nbsp;&nbsp;bid&nbsp;dynamics,&nbsp;LOBFactorProcess&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynamics_ask:&nbsp;&nbsp;&nbsp;ask&nbsp;dynamics,&nbsp;LOBFactorProcess&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rho:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;correlation&nbsp;between&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LOBLinearTwoFactor-__init__"><strong>__init__</strong></a>(self, modelid<font color="#909090">='LinearModel'</font>)</dt><dd><tt>parameter&nbsp;format:&nbsp;[bidparameter,&nbsp;askparameter]</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_gamma"><strong>get_gamma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_modelid"><strong>get_modelid</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_modelpar_dict"><strong>get_modelpar_dict</strong></a>(self)</dt><dd><tt>returns&nbsp;the&nbsp;model&nbsp;parameters&nbsp;in&nbsp;dict&nbsp;format.&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_mu"><strong>get_mu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_nu"><strong>get_nu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_profilefct"><strong>get_profilefct</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;profile&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_profilefct_ask"><strong>get_profilefct_ask</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;function&nbsp;with&nbsp;the&nbsp;calibrated&nbsp;profile&nbsp;of&nbsp;the&nbsp;_ask&nbsp;side&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_profilefct_bid"><strong>get_profilefct_bid</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;function&nbsp;with&nbsp;the&nbsp;calibrated&nbsp;profile&nbsp;of&nbsp;the&nbsp;_bid&nbsp;side&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_rho"><strong>get_rho</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_sigma"><strong>get_sigma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-get_z0"><strong>get_z0</strong></a>(self)</dt><dd><tt>Returns&nbsp;bid&nbsp;and&nbsp;ask&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-init_leastsq"><strong>init_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;using&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-init_tv_argmax"><strong>init_tv_argmax</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;position&nbsp;of&nbsp;the&nbsp;maximum</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-init_tv_leastsq"><strong>init_tv_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-init_tv_rmax1"><strong>init_tv_rmax1</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-loadf"><strong>loadf</strong></a>(self, filename)</dt><dd><tt>Creates&nbsp;and&nbsp;loads&nbsp;a&nbsp;model&nbsp;from&nbsp;a&nbsp;file&nbsp;in&nbsp;json&nbsp;format&nbsp;with&nbsp;name&nbsp;filename.lobm</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-savef"><strong>savef</strong></a>(self)</dt><dd><tt>Saves&nbsp;model&nbsp;in&nbsp;a&nbsp;file&nbsp;with&nbsp;name&nbsp;modelid.lobm&nbsp;using&nbsp;json</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_gamma"><strong>set_gamma</strong></a>(self, gammas)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_modelid"><strong>set_modelid</strong></a>(self, modelid)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_modelpar_dict"><strong>set_modelpar_dict</strong></a>(self, pardict)</dt><dd><tt>sets&nbsp;model&nbsp;parameter&nbsp;to&nbsp;the&nbsp;parameter&nbsp;given&nbsp;in&nbsp;dict&nbsp;format&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_mu"><strong>set_mu</strong></a>(self, mus)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_nu"><strong>set_nu</strong></a>(self, nus)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_rho"><strong>set_rho</strong></a>(self, rho)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_sigma"><strong>set_sigma</strong></a>(self, sigmas)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-set_z0"><strong>set_z0</strong></a>(self, z0s)</dt><dd><tt>Set&nbsp;bid&nbsp;and&nbsp;ask&nbsp;initial&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactor-simulate_dynamics"><strong>simulate_dynamics</strong></a>(self, dt, num_tpoints, return_bmincr<font color="#909090">=False</font>)</dt><dd><tt>Simulate&nbsp;a&nbsp;trijectory&nbsp;of&nbsp;the&nbsp;depth&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;using&nbsp;Euler&nbsp;scheme.&nbsp;<br>
+----------<br>
+args:<br>
+dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid&nbsp;size<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;on&nbsp;the&nbsp;grid<br>
+return_bmincr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;True,&nbsp;then&nbsp;also&nbsp;the&nbsp;sample&nbsp;paths&nbsp;of&nbsp;the&nbsp;ind.&nbsp;BMs&nbsp;used&nbsp;for&nbsp;simulation&nbsp;will&nbsp;be&nbsp;returned<br>
+&nbsp;<br>
+output:<br>
+path_bid,&nbsp;path_ask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;the&nbsp;simulated&nbsp;paths<br>
+or<br>
+path_bid,&nbsp;path_ask,&nbsp;dw1t,&nbsp;dw2t</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBLinearTwoFactorS">class <strong>LOBLinearTwoFactorS</strong></a>(<a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="#LOBLinearTwoFactor">LOBLinearTwoFactor</a>&nbsp;which&nbsp;supports&nbsp;rescaling&nbsp;of&nbsp;tick&nbsp;level&nbsp;scale&nbsp;by&nbsp;x&nbsp;**&nbsp;alpha&nbsp;for&nbsp;some&nbsp;alpha&nbsp;&gt;&nbsp;0.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.models.loblinear.html#LOBLinearTwoFactorS">LOBLinearTwoFactorS</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinear">LOBLinear</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="LOBLinearTwoFactorS-__init__"><strong>__init__</strong></a>(self, modelid<font color="#909090">='LinearModel'</font>)</dt><dd><tt>parameter&nbsp;format:&nbsp;[bidparameter,&nbsp;askparameter]</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_modelpar_dict"><strong>get_modelpar_dict</strong></a>(self)</dt><dd><tt>returns&nbsp;the&nbsp;model&nbsp;parameters&nbsp;in&nbsp;dict&nbsp;format.&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_profilefct_ask"><strong>get_profilefct_ask</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;function&nbsp;with&nbsp;the&nbsp;calibrated&nbsp;profile&nbsp;of&nbsp;the&nbsp;_ask&nbsp;side&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_profilefct_bid"><strong>get_profilefct_bid</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;function&nbsp;with&nbsp;the&nbsp;calibrated&nbsp;profile&nbsp;of&nbsp;the&nbsp;_bid&nbsp;side&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_scaling"><strong>get_scaling</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-init_leastsq"><strong>init_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;using&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_modelpar_dict"><strong>set_modelpar_dict</strong></a>(self, pardict)</dt><dd><tt>sets&nbsp;model&nbsp;parameter&nbsp;to&nbsp;the&nbsp;parameter&nbsp;given&nbsp;in&nbsp;dict&nbsp;format&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_scaling"><strong>set_scaling</strong></a>(self, alphas)</dt><dd><tt>Sets&nbsp;the&nbsp;scaling&nbsp;of&nbsp;the&nbsp;price&nbsp;level&nbsp;grid&nbsp;to&nbsp;x&nbsp;**&nbsp;alpha</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a>:<br>
+<dl><dt><a name="LOBLinearTwoFactorS-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_gamma"><strong>get_gamma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_modelid"><strong>get_modelid</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_mu"><strong>get_mu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_nu"><strong>get_nu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_profilefct"><strong>get_profilefct</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;profile&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_rho"><strong>get_rho</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_sigma"><strong>get_sigma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-get_z0"><strong>get_z0</strong></a>(self)</dt><dd><tt>Returns&nbsp;bid&nbsp;and&nbsp;ask&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-init_tv_argmax"><strong>init_tv_argmax</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;position&nbsp;of&nbsp;the&nbsp;maximum</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-init_tv_leastsq"><strong>init_tv_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-init_tv_rmax1"><strong>init_tv_rmax1</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-loadf"><strong>loadf</strong></a>(self, filename)</dt><dd><tt>Creates&nbsp;and&nbsp;loads&nbsp;a&nbsp;model&nbsp;from&nbsp;a&nbsp;file&nbsp;in&nbsp;json&nbsp;format&nbsp;with&nbsp;name&nbsp;filename.lobm</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-savef"><strong>savef</strong></a>(self)</dt><dd><tt>Saves&nbsp;model&nbsp;in&nbsp;a&nbsp;file&nbsp;with&nbsp;name&nbsp;modelid.lobm&nbsp;using&nbsp;json</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_gamma"><strong>set_gamma</strong></a>(self, gammas)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_modelid"><strong>set_modelid</strong></a>(self, modelid)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_mu"><strong>set_mu</strong></a>(self, mus)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_nu"><strong>set_nu</strong></a>(self, nus)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_rho"><strong>set_rho</strong></a>(self, rho)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_sigma"><strong>set_sigma</strong></a>(self, sigmas)</dt></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-set_z0"><strong>set_z0</strong></a>(self, z0s)</dt><dd><tt>Set&nbsp;bid&nbsp;and&nbsp;ask&nbsp;initial&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="LOBLinearTwoFactorS-simulate_dynamics"><strong>simulate_dynamics</strong></a>(self, dt, num_tpoints, return_bmincr<font color="#909090">=False</font>)</dt><dd><tt>Simulate&nbsp;a&nbsp;trijectory&nbsp;of&nbsp;the&nbsp;depth&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;using&nbsp;Euler&nbsp;scheme.&nbsp;<br>
+----------<br>
+args:<br>
+dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid&nbsp;size<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;on&nbsp;the&nbsp;grid<br>
+return_bmincr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;True,&nbsp;then&nbsp;also&nbsp;the&nbsp;sample&nbsp;paths&nbsp;of&nbsp;the&nbsp;ind.&nbsp;BMs&nbsp;used&nbsp;for&nbsp;simulation&nbsp;will&nbsp;be&nbsp;returned<br>
+&nbsp;<br>
+output:<br>
+path_bid,&nbsp;path_ask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;the&nbsp;simulated&nbsp;paths<br>
+or<br>
+path_bid,&nbsp;path_ask,&nbsp;dw1t,&nbsp;dw2t</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="MarketMeanRev">class <strong>MarketMeanRev</strong></a>(<a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>TODO<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.models.loblinear.html#MarketMeanRev">MarketMeanRev</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinear">LOBLinear</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="MarketMeanRev-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>parameter&nbsp;format:&nbsp;[bidparameter,&nbsp;askparameter]</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a>:<br>
+<dl><dt><a name="MarketMeanRev-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-get_gamma"><strong>get_gamma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-get_modelid"><strong>get_modelid</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-get_modelpar_dict"><strong>get_modelpar_dict</strong></a>(self)</dt><dd><tt>returns&nbsp;the&nbsp;model&nbsp;parameters&nbsp;in&nbsp;dict&nbsp;format.&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-get_mu"><strong>get_mu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-get_nu"><strong>get_nu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-get_profilefct"><strong>get_profilefct</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;profile&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-get_profilefct_ask"><strong>get_profilefct_ask</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;function&nbsp;with&nbsp;the&nbsp;calibrated&nbsp;profile&nbsp;of&nbsp;the&nbsp;_ask&nbsp;side&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-get_profilefct_bid"><strong>get_profilefct_bid</strong></a>(self)</dt><dd><tt>Returns&nbsp;a&nbsp;function&nbsp;with&nbsp;the&nbsp;calibrated&nbsp;profile&nbsp;of&nbsp;the&nbsp;_bid&nbsp;side&nbsp;as&nbsp;a&nbsp;function&nbsp;of&nbsp;relative&nbsp;price&nbsp;x</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-get_rho"><strong>get_rho</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-get_sigma"><strong>get_sigma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-get_z0"><strong>get_z0</strong></a>(self)</dt><dd><tt>Returns&nbsp;bid&nbsp;and&nbsp;ask&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-init_leastsq"><strong>init_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;using&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-init_tv_argmax"><strong>init_tv_argmax</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;position&nbsp;of&nbsp;the&nbsp;maximum</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-init_tv_leastsq"><strong>init_tv_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-init_tv_rmax1"><strong>init_tv_rmax1</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Initialize&nbsp;model&nbsp;by&nbsp;fitting&nbsp;to&nbsp;data&nbsp;as&nbsp;follows:<br>
+1)&nbsp;initial&nbsp;volume&nbsp;is&nbsp;kept&nbsp;fixed&nbsp;from&nbsp;the&nbsp;data<br>
+2)&nbsp;gamma&nbsp;is&nbsp;computed&nbsp;by&nbsp;least&nbsp;square&nbsp;fit</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-loadf"><strong>loadf</strong></a>(self, filename)</dt><dd><tt>Creates&nbsp;and&nbsp;loads&nbsp;a&nbsp;model&nbsp;from&nbsp;a&nbsp;file&nbsp;in&nbsp;json&nbsp;format&nbsp;with&nbsp;name&nbsp;filename.lobm</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-savef"><strong>savef</strong></a>(self)</dt><dd><tt>Saves&nbsp;model&nbsp;in&nbsp;a&nbsp;file&nbsp;with&nbsp;name&nbsp;modelid.lobm&nbsp;using&nbsp;json</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-set_gamma"><strong>set_gamma</strong></a>(self, gammas)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-set_modelid"><strong>set_modelid</strong></a>(self, modelid)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-set_modelpar_dict"><strong>set_modelpar_dict</strong></a>(self, pardict)</dt><dd><tt>sets&nbsp;model&nbsp;parameter&nbsp;to&nbsp;the&nbsp;parameter&nbsp;given&nbsp;in&nbsp;dict&nbsp;format&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-set_mu"><strong>set_mu</strong></a>(self, mus)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-set_nu"><strong>set_nu</strong></a>(self, nus)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-set_rho"><strong>set_rho</strong></a>(self, rho)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-set_sigma"><strong>set_sigma</strong></a>(self, sigmas)</dt></dl>
+
+<dl><dt><a name="MarketMeanRev-set_z0"><strong>set_z0</strong></a>(self, z0s)</dt><dd><tt>Set&nbsp;bid&nbsp;and&nbsp;ask&nbsp;initial&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="MarketMeanRev-simulate_dynamics"><strong>simulate_dynamics</strong></a>(self, dt, num_tpoints, return_bmincr<font color="#909090">=False</font>)</dt><dd><tt>Simulate&nbsp;a&nbsp;trijectory&nbsp;of&nbsp;the&nbsp;depth&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;using&nbsp;Euler&nbsp;scheme.&nbsp;<br>
+----------<br>
+args:<br>
+dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid&nbsp;size<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;on&nbsp;the&nbsp;grid<br>
+return_bmincr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;True,&nbsp;then&nbsp;also&nbsp;the&nbsp;sample&nbsp;paths&nbsp;of&nbsp;the&nbsp;ind.&nbsp;BMs&nbsp;used&nbsp;for&nbsp;simulation&nbsp;will&nbsp;be&nbsp;returned<br>
+&nbsp;<br>
+output:<br>
+path_bid,&nbsp;path_ask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;the&nbsp;simulated&nbsp;paths<br>
+or<br>
+path_bid,&nbsp;path_ask,&nbsp;dw1t,&nbsp;dw2t</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="OrderVolumeMeanRev">class <strong>OrderVolumeMeanRev</strong></a>(<a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Model&nbsp;for&nbsp;the&nbsp;volume&nbsp;of&nbsp;orders&nbsp;in&nbsp;the&nbsp;first&nbsp;levels&nbsp;of&nbsp;the&nbsp;order&nbsp;book&nbsp;<br>
+&nbsp;<br>
+fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modelid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identifier&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;integer&nbsp;describing&nbsp;the&nbsp;number&nbsp;of&nbsp;levels&nbsp;considered&nbsp;for&nbsp;computation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dynamics_bid:&nbsp;&nbsp;&nbsp;bid&nbsp;dynamics,&nbsp;LOBFactorProcess&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dynamics_ask:&nbsp;&nbsp;&nbsp;ask&nbsp;dynamics,&nbsp;LOBFactorProcess&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rho:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;correlation&nbsp;between&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side<br>
+&nbsp;<br>
+Following&nbsp;fields&nbsp;from&nbsp;super&nbsp;class&nbsp;are&nbsp;not&nbsp;used&nbsp;here&nbsp;and&nbsp;set&nbsp;to&nbsp;None:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profile_bid&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profile_ask<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.models.loblinear.html#OrderVolumeMeanRev">OrderVolumeMeanRev</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinear">LOBLinear</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="OrderVolumeMeanRev-__init__"><strong>__init__</strong></a>(self, modelid<font color="#909090">='OrderVolumeMeanRev'</font>, num_levels<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_gamma"><strong>get_gamma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_modelpar_dict"><strong>get_modelpar_dict</strong></a>(self)</dt><dd><tt>returns&nbsp;the&nbsp;model&nbsp;parameters&nbsp;in&nbsp;dict&nbsp;format.&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_profilefct"><strong>get_profilefct</strong></a>(self)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_profilefct_ask"><strong>get_profilefct_ask</strong></a>(self)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_profilefct_bid"><strong>get_profilefct_bid</strong></a>(self)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-init_leastsq"><strong>init_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-init_tv_argmax"><strong>init_tv_argmax</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-init_tv_leastsq"><strong>init_tv_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-init_tv_rmax1"><strong>init_tv_rmax1</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_modelpar_dict"><strong>set_modelpar_dict</strong></a>(self, pardict)</dt><dd><tt>sets&nbsp;model&nbsp;parameter&nbsp;to&nbsp;the&nbsp;parameter&nbsp;given&nbsp;in&nbsp;dict&nbsp;format&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">LOBLinearTwoFactor</a>:<br>
+<dl><dt><a name="OrderVolumeMeanRev-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_modelid"><strong>get_modelid</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_mu"><strong>get_mu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_nu"><strong>get_nu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_rho"><strong>get_rho</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_sigma"><strong>get_sigma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-get_z0"><strong>get_z0</strong></a>(self)</dt><dd><tt>Returns&nbsp;bid&nbsp;and&nbsp;ask&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-loadf"><strong>loadf</strong></a>(self, filename)</dt><dd><tt>Creates&nbsp;and&nbsp;loads&nbsp;a&nbsp;model&nbsp;from&nbsp;a&nbsp;file&nbsp;in&nbsp;json&nbsp;format&nbsp;with&nbsp;name&nbsp;filename.lobm</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-savef"><strong>savef</strong></a>(self)</dt><dd><tt>Saves&nbsp;model&nbsp;in&nbsp;a&nbsp;file&nbsp;with&nbsp;name&nbsp;modelid.lobm&nbsp;using&nbsp;json</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_gamma"><strong>set_gamma</strong></a>(self, gammas)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_modelid"><strong>set_modelid</strong></a>(self, modelid)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_mu"><strong>set_mu</strong></a>(self, mus)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_nu"><strong>set_nu</strong></a>(self, nus)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_rho"><strong>set_rho</strong></a>(self, rho)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_sigma"><strong>set_sigma</strong></a>(self, sigmas)</dt></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-set_z0"><strong>set_z0</strong></a>(self, z0s)</dt><dd><tt>Set&nbsp;bid&nbsp;and&nbsp;ask&nbsp;initial&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeMeanRev-simulate_dynamics"><strong>simulate_dynamics</strong></a>(self, dt, num_tpoints, return_bmincr<font color="#909090">=False</font>)</dt><dd><tt>Simulate&nbsp;a&nbsp;trijectory&nbsp;of&nbsp;the&nbsp;depth&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;using&nbsp;Euler&nbsp;scheme.&nbsp;<br>
+----------<br>
+args:<br>
+dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid&nbsp;size<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;on&nbsp;the&nbsp;grid<br>
+return_bmincr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;True,&nbsp;then&nbsp;also&nbsp;the&nbsp;sample&nbsp;paths&nbsp;of&nbsp;the&nbsp;ind.&nbsp;BMs&nbsp;used&nbsp;for&nbsp;simulation&nbsp;will&nbsp;be&nbsp;returned<br>
+&nbsp;<br>
+output:<br>
+path_bid,&nbsp;path_ask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;the&nbsp;simulated&nbsp;paths<br>
+or<br>
+path_bid,&nbsp;path_ask,&nbsp;dw1t,&nbsp;dw2t</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

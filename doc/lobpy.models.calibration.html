@@ -1,0 +1,319 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.models.calibration</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.<a href="lobpy.models.html"><font color="#ffffff">models</font></a>.calibration</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/calibration.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/calibration.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+&nbsp;<br>
+calibration.py<br>
+&nbsp;<br>
+Contains&nbsp;objects&nbsp;and&nbsp;functions&nbsp;for&nbsp;calibration&nbsp;of&nbsp;the&nbsp;LOB&nbsp;models.<br>
+&nbsp;<br>
+To&nbsp;calibrate&nbsp;dynamics&nbsp;to&nbsp;a&nbsp;given&nbsp;time&nbsp;series&nbsp;of&nbsp;data&nbsp;on&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side,&nbsp;data_bid&nbsp;and&nbsp;data_ask,&nbsp;with&nbsp;time&nbsp;stamps&nbsp;time_stamps&nbsp;which&nbsp;is&nbsp;uniform&nbsp;with&nbsp;time&nbsp;increment&nbsp;time_incr,&nbsp;e.&nbsp;g.&nbsp;use<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;cal&nbsp;=&nbsp;<a href="#OrderVolumeCalibrator">OrderVolumeCalibrator</a>()<br>
+&nbsp;<br>
+&gt;&gt;&gt;&nbsp;cal.calibrate(time_stamps,&nbsp;time_stamps[1]&nbsp;-&nbsp;time_stamps[0],&nbsp;data_bid,&nbsp;data_ask)</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="copy.html">copy</a><br>
+<a href="csv.html">csv</a><br>
+<a href="lobpy.models.estimators.html">lobpy.models.estimators</a><br>
+</td><td width="25%" valign=top><a href="json.html">json</a><br>
+<a href="math.html">math</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="pandas.html">pandas</a><br>
+<a href="scipy.optimize.html">scipy.optimize</a><br>
+<a href="warnings.html">warnings</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.calibration.html#ModelCalibrator">ModelCalibrator</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.calibration.html#LOBProfileCalibrator">LOBProfileCalibrator</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.models.calibration.html#OrderVolumeCalibrator">OrderVolumeCalibrator</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="lobpy.models.calibration.html#ParameterHistory">ParameterHistory</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.calibration.html#CalibrationHistory">CalibrationHistory</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.models.calibration.html#PredictionHistory">PredictionHistory</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CalibrationHistory">class <strong>CalibrationHistory</strong></a>(<a href="lobpy.models.calibration.html#ParameterHistory">ParameterHistory</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods inherited from <a href="lobpy.models.calibration.html#ParameterHistory">ParameterHistory</a>:<br>
+<dl><dt><a name="CalibrationHistory-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="CalibrationHistory-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="CalibrationHistory-append"><strong>append</strong></a>(self, time_stamp, two_factor_model)</dt><dd><tt>adds&nbsp;parameter&nbsp;from&nbsp;two&nbsp;factor&nbsp;model&nbsp;with&nbsp;given&nbsp;time&nbsp;stamp&nbsp;to&nbsp;the&nbsp;history</tt></dd></dl>
+
+<dl><dt><a name="CalibrationHistory-get_modelpardict_t"><strong>get_modelpardict_t</strong></a>(self, time_index, modelid<font color="#909090">='model_from_calhist'</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;model&nbsp;parameter&nbsp;as&nbsp;a&nbsp;dict&nbsp;given&nbsp;a&nbsp;time&nbsp;index&nbsp;time_index&nbsp;for&nbsp;the&nbsp;model&nbsp;history</tt></dd></dl>
+
+<dl><dt><a name="CalibrationHistory-loadf_json"><strong>loadf_json</strong></a>(self, filename)</dt><dd><tt>Loads&nbsp;the&nbsp;model&nbsp;history&nbsp;to&nbsp;a&nbsp;file&nbsp;from&nbsp;json&nbsp;format.&nbsp;Warning:&nbsp;This&nbsp;method&nbsp;overwrites&nbsp;the&nbsp;history&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="CalibrationHistory-savef"><strong>savef</strong></a>(self, filename, csv<font color="#909090">=True</font>, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;model&nbsp;history&nbsp;to&nbsp;a&nbsp;file&nbsp;in&nbsp;format:<br>
+a)&nbsp;csv&nbsp;format&nbsp;if&nbsp;csv==True&nbsp;using&nbsp;pandas&nbsp;or&nbsp;<br>
+b)&nbsp;json&nbsp;format,&nbsp;else&nbsp;<br>
+The&nbsp;columns&nbsp;are&nbsp;[time,&nbsp;bid&nbsp;parameters,&nbsp;ask&nbsp;parameters,&nbsp;correlation].&nbsp;<br>
+paramlist&nbsp;can&nbsp;be&nbsp;optionally&nbsp;given&nbsp;to&nbsp;fix&nbsp;the&nbsp;order&nbsp;and&nbsp;selection&nbsp;of&nbsp;parameters.&nbsp;See&nbsp;also&nbsp;to_list&nbsp;for.</tt></dd></dl>
+
+<dl><dt><a name="CalibrationHistory-to_dict"><strong>to_dict</strong></a>(self, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;parameters&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;dict&nbsp;of&nbsp;lists.&nbsp;<br>
+----------<br>
+args:<br>
+paramlist=None&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;form&nbsp;['outparamkey1',&nbsp;outparamkey2']&nbsp;with&nbsp;keys&nbsp;which&nbsp;should&nbsp;be&nbsp;considered.&nbsp;Time&nbsp;and&nbsp;Corellation&nbsp;are&nbsp;always&nbsp;included.</tt></dd></dl>
+
+<dl><dt><a name="CalibrationHistory-to_list"><strong>to_list</strong></a>(self, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;parameters&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;list&nbsp;of&nbsp;lists&nbsp;of&nbsp;format.<br>
+----------<br>
+args:<br>
+paramlist=None&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;form&nbsp;['outparamkey1',&nbsp;outparamkey2']&nbsp;in&nbsp;which&nbsp;output&nbsp;is&nbsp;written<br>
+&nbsp;<br>
+Output:<br>
+[['Time',&nbsp;timepoint1,&nbsp;timepoint2,...],&nbsp;[param1_bid,&nbsp;param1_bid[timepoint1],...],...]<br>
+if&nbsp;paramlist&nbsp;is&nbsp;not&nbsp;None,&nbsp;then&nbsp;<br>
+[['Time',&nbsp;timepoint1,&nbsp;timepoint2,...],&nbsp;[&nbsp;outparamkey1',&nbsp;outparamvalue1[timepoint1],...],...,&nbsp;['rho',&nbsp;...]</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBProfileCalibrator">class <strong>LOBProfileCalibrator</strong></a>(<a href="lobpy.models.calibration.html#ModelCalibrator">ModelCalibrator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;calibrates&nbsp;a&nbsp;model&nbsp;and&nbsp;stores&nbsp;its&nbsp;history<br>
+---------<br>
+fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;calibratorid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identifier&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fitting_method:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;valid&nbsp;choices&nbsp;are&nbsp;"LSQ",&nbsp;"TVLSQ",&nbsp;"TV-ArgMax",&nbsp;"TV-Rmax1"<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LOBProfileCalibrator-__init__"><strong>__init__</strong></a>(self, calibratorid<font color="#909090">='LOBProfileCalibrator'</font>, fitting_method<font color="#909090">='LSQ'</font>, model<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="LOBProfileCalibrator-calibrate"><strong>calibrate</strong></a>(self, time_stamp, data_bid, data_ask)</dt><dd><tt>calibrates&nbsp;to&nbsp;data&nbsp;by&nbsp;fitting&nbsp;the&nbsp;method&nbsp;specified&nbsp;in&nbsp;.fitting_method<br>
+----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_bid<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_ask:&nbsp;&nbsp;&nbsp;&nbsp;bid&nbsp;and&nbsp;ask&nbsp;profiles&nbsp;to&nbsp;fit&nbsp;data&nbsp;to&nbsp;(array&nbsp;format)</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.calibration.html#ModelCalibrator">ModelCalibrator</a>:<br>
+<dl><dt><a name="LOBProfileCalibrator-get_id"><strong>get_id</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBProfileCalibrator-loadf_history_json"><strong>loadf_history_json</strong></a>(self, filename)</dt><dd><tt>Loads&nbsp;calibration&nbsp;history&nbsp;from&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="LOBProfileCalibrator-savef_history"><strong>savef_history</strong></a>(self, csv<font color="#909090">=True</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;calibration&nbsp;history.</tt></dd></dl>
+
+<dl><dt><a name="LOBProfileCalibrator-set_id"><strong>set_id</strong></a>(self, calibratorid)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ModelCalibrator">class <strong>ModelCalibrator</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;is&nbsp;designed&nbsp;to&nbsp;calibrate&nbsp;linear&nbsp;models&nbsp;and&nbsp;store&nbsp;its&nbsp;history<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ModelCalibrator-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ModelCalibrator-calibrate"><strong>calibrate</strong></a>(self, time_stamp, data_bid, data_ask)</dt><dd><tt>Calibration&nbsp;to&nbsp;data&nbsp;history&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;<br>
+---------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_stamp:&nbsp;&nbsp;&nbsp;time&nbsp;point&nbsp;in&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_bid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;on&nbsp;bid&nbsp;side&nbsp;at&nbsp;the&nbsp;time&nbsp;points<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_ask:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;on&nbsp;ask&nbsp;side&nbsp;at&nbsp;the&nbsp;time&nbsp;points<br>
+output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modelpar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;the&nbsp;calibrated&nbsp;parameters</tt></dd></dl>
+
+<dl><dt><a name="ModelCalibrator-get_id"><strong>get_id</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ModelCalibrator-loadf_history_json"><strong>loadf_history_json</strong></a>(self, filename)</dt><dd><tt>Loads&nbsp;calibration&nbsp;history&nbsp;from&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="ModelCalibrator-savef_history"><strong>savef_history</strong></a>(self, csv<font color="#909090">=True</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;calibration&nbsp;history.</tt></dd></dl>
+
+<dl><dt><a name="ModelCalibrator-set_id"><strong>set_id</strong></a>(self, calibratorid)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="OrderVolumeCalibrator">class <strong>OrderVolumeCalibrator</strong></a>(<a href="lobpy.models.calibration.html#ModelCalibrator">ModelCalibrator</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;calibrates&nbsp;a&nbsp;model&nbsp;and&nbsp;stores&nbsp;its&nbsp;history<br>
+---------<br>
+fields:<br>
+calibratorid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identifier&nbsp;string<br>
+model:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current&nbsp;model&nbsp;to&nbsp;be&nbsp;calibrated<br>
+estimator_dynamics:&nbsp;&nbsp;function&nbsp;for&nbsp;estimation&nbsp;of&nbsp;(nu,&nbsp;mu,&nbsp;sigma)&nbsp;<br>
+estimator_corr:&nbsp;function&nbsp;for&nbsp;estimation&nbsp;of&nbsp;correlation&nbsp;(rho),&nbsp;if&nbsp;None,&nbsp;rho&nbsp;is&nbsp;set&nbsp;to&nbsp;0.<br>
+estimator_dyn_corr&nbsp;&nbsp;&nbsp;If&nbsp;this&nbsp;estimator&nbsp;is&nbsp;set&nbsp;then&nbsp;it&nbsp;is&nbsp;assumed&nbsp;to&nbsp;return&nbsp;all&nbsp;parameters,&nbsp;incl.&nbsp;correlation<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="OrderVolumeCalibrator-__init__"><strong>__init__</strong></a>(self, calibratorid<font color="#909090">='OrderVolumeCalibrator'</font>, model<font color="#909090">=None</font>, estimator_dynamics<font color="#909090">=&lt;function estimate_recgamma_diff&gt;</font>, estimator_corr<font color="#909090">=None</font>, estimator_dyn_corr<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="OrderVolumeCalibrator-calibrate"><strong>calibrate</strong></a>(self, time_stamp, time_incr, data_bid, data_ask)</dt><dd><tt>Calibration&nbsp;to&nbsp;data&nbsp;history&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;<br>
+---------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_stamp:&nbsp;&nbsp;&nbsp;time&nbsp;point&nbsp;in&nbsp;float<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_incr:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;increments&nbsp;in&nbsp;the&nbsp;array<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_bid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volume&nbsp;on&nbsp;bid&nbsp;side&nbsp;at&nbsp;the&nbsp;time&nbsp;points<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data_ask:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;volume&nbsp;on&nbsp;ask&nbsp;side&nbsp;at&nbsp;the&nbsp;time&nbsp;points<br>
+&nbsp;&nbsp;&nbsp;&nbsp;n_start:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;starting&nbsp;index&nbsp;for&nbsp;the&nbsp;calibration<br>
+&nbsp;&nbsp;&nbsp;&nbsp;n_today:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first&nbsp;index&nbsp;not&nbsp;to&nbsp;include&nbsp;for&nbsp;the&nbsp;calibration&nbsp;(None,&nbsp;if&nbsp;calibration&nbsp;to&nbsp;full&nbsp;array)<br>
+&nbsp;<br>
+---------<br>
+output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(params_bid,&nbsp;params_ask,&nbsp;rho):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;the&nbsp;calibrated&nbsp;parameters,&nbsp;each&nbsp;in&nbsp;format&nbsp;(mu,&nbsp;nu,&nbsp;sigma)&nbsp;<br>
+if&nbsp;estimator_full&nbsp;is&nbsp;set,&nbsp;then&nbsp;the&nbsp;output&nbsp;will&nbsp;be&nbsp;the&nbsp;output&nbsp;of&nbsp;that&nbsp;function</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeCalibrator-calibrate_running_frame"><strong>calibrate_running_frame</strong></a>(self, time_start, time_discr, data_bid, data_ask, num_timepoints_calib, num_timepoints_recal<font color="#909090">=1</font>)</dt><dd><tt>This&nbsp;function&nbsp;creates&nbsp;a&nbsp;price&nbsp;model&nbsp;induced&nbsp;by&nbsp;the&nbsp;mean&nbsp;reverting&nbsp;order&nbsp;book&nbsp;model&nbsp;and&nbsp;calibrates&nbsp;this&nbsp;model&nbsp;on&nbsp;a&nbsp;defined&nbsp;running&nbsp;time&nbsp;fram<br>
+----------------<br>
+args:<br>
+time_start:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;time&nbsp;point&nbsp;at&nbsp;which&nbsp;data&nbsp;starts&nbsp;(calibration&nbsp;will&nbsp;start&nbsp;num_timepoints_calib&nbsp;later)<br>
+time_discr:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float&nbsp;time&nbsp;between&nbsp;2&nbsp;time&nbsp;points<br>
+data_bid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;bid&nbsp;side&nbsp;(uniform&nbsp;time&nbsp;grid,&nbsp;starting&nbsp;at&nbsp;time_start)<br>
+data_ask:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;ask&nbsp;side&nbsp;(uniform&nbsp;time&nbsp;grid,&nbsp;starting&nbsp;at&nbsp;time_start)<br>
+num_timepoints_calib:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;each&nbsp;calibration<br>
+num_timepoints_recal=1:&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;after&nbsp;which&nbsp;recalibration&nbsp;starts</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeCalibrator-savef_history"><strong>savef_history</strong></a>(self, csv<font color="#909090">=True</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;calibration&nbsp;history.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.calibration.html#ModelCalibrator">ModelCalibrator</a>:<br>
+<dl><dt><a name="OrderVolumeCalibrator-get_id"><strong>get_id</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OrderVolumeCalibrator-loadf_history_json"><strong>loadf_history_json</strong></a>(self, filename)</dt><dd><tt>Loads&nbsp;calibration&nbsp;history&nbsp;from&nbsp;file</tt></dd></dl>
+
+<dl><dt><a name="OrderVolumeCalibrator-set_id"><strong>set_id</strong></a>(self, calibratorid)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ParameterHistory">class <strong>ParameterHistory</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Log&nbsp;of&nbsp;parameters&nbsp;for&nbsp;linear&nbsp;SPDE&nbsp;market&nbsp;models<br>
+-------<br>
+time_stamps:&nbsp;list&nbsp;of&nbsp;time&nbsp;stamps<br>
+params_bid:&nbsp;defaultdict&nbsp;with&nbsp;lists&nbsp;of&nbsp;parameters&nbsp;of&nbsp;bid&nbsp;side<br>
+params_ask:&nbsp;defaultdict&nbsp;with&nbsp;lists&nbsp;of&nbsp;parameters&nbsp;of&nbsp;ask&nbsp;side<br>
+params_correlation:&nbsp;list&nbsp;with&nbsp;correlation&nbsp;values<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="ParameterHistory-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ParameterHistory-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ParameterHistory-append"><strong>append</strong></a>(self, time_stamp, two_factor_model)</dt><dd><tt>adds&nbsp;parameter&nbsp;from&nbsp;two&nbsp;factor&nbsp;model&nbsp;with&nbsp;given&nbsp;time&nbsp;stamp&nbsp;to&nbsp;the&nbsp;history</tt></dd></dl>
+
+<dl><dt><a name="ParameterHistory-get_modelpardict_t"><strong>get_modelpardict_t</strong></a>(self, time_index, modelid<font color="#909090">='model_from_calhist'</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;model&nbsp;parameter&nbsp;as&nbsp;a&nbsp;dict&nbsp;given&nbsp;a&nbsp;time&nbsp;index&nbsp;time_index&nbsp;for&nbsp;the&nbsp;model&nbsp;history</tt></dd></dl>
+
+<dl><dt><a name="ParameterHistory-loadf_json"><strong>loadf_json</strong></a>(self, filename)</dt><dd><tt>Loads&nbsp;the&nbsp;model&nbsp;history&nbsp;to&nbsp;a&nbsp;file&nbsp;from&nbsp;json&nbsp;format.&nbsp;Warning:&nbsp;This&nbsp;method&nbsp;overwrites&nbsp;the&nbsp;history&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="ParameterHistory-savef"><strong>savef</strong></a>(self, filename, csv<font color="#909090">=True</font>, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;model&nbsp;history&nbsp;to&nbsp;a&nbsp;file&nbsp;in&nbsp;format:<br>
+a)&nbsp;csv&nbsp;format&nbsp;if&nbsp;csv==True&nbsp;using&nbsp;pandas&nbsp;or&nbsp;<br>
+b)&nbsp;json&nbsp;format,&nbsp;else&nbsp;<br>
+The&nbsp;columns&nbsp;are&nbsp;[time,&nbsp;bid&nbsp;parameters,&nbsp;ask&nbsp;parameters,&nbsp;correlation].&nbsp;<br>
+paramlist&nbsp;can&nbsp;be&nbsp;optionally&nbsp;given&nbsp;to&nbsp;fix&nbsp;the&nbsp;order&nbsp;and&nbsp;selection&nbsp;of&nbsp;parameters.&nbsp;See&nbsp;also&nbsp;to_list&nbsp;for.</tt></dd></dl>
+
+<dl><dt><a name="ParameterHistory-to_dict"><strong>to_dict</strong></a>(self, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;parameters&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;dict&nbsp;of&nbsp;lists.&nbsp;<br>
+----------<br>
+args:<br>
+paramlist=None&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;form&nbsp;['outparamkey1',&nbsp;outparamkey2']&nbsp;with&nbsp;keys&nbsp;which&nbsp;should&nbsp;be&nbsp;considered.&nbsp;Time&nbsp;and&nbsp;Corellation&nbsp;are&nbsp;always&nbsp;included.</tt></dd></dl>
+
+<dl><dt><a name="ParameterHistory-to_list"><strong>to_list</strong></a>(self, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;parameters&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;list&nbsp;of&nbsp;lists&nbsp;of&nbsp;format.<br>
+----------<br>
+args:<br>
+paramlist=None&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;form&nbsp;['outparamkey1',&nbsp;outparamkey2']&nbsp;in&nbsp;which&nbsp;output&nbsp;is&nbsp;written<br>
+&nbsp;<br>
+Output:<br>
+[['Time',&nbsp;timepoint1,&nbsp;timepoint2,...],&nbsp;[param1_bid,&nbsp;param1_bid[timepoint1],...],...]<br>
+if&nbsp;paramlist&nbsp;is&nbsp;not&nbsp;None,&nbsp;then&nbsp;<br>
+[['Time',&nbsp;timepoint1,&nbsp;timepoint2,...],&nbsp;[&nbsp;outparamkey1',&nbsp;outparamvalue1[timepoint1],...],...,&nbsp;['rho',&nbsp;...]</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PredictionHistory">class <strong>PredictionHistory</strong></a>(<a href="lobpy.models.calibration.html#ParameterHistory">ParameterHistory</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Methods inherited from <a href="lobpy.models.calibration.html#ParameterHistory">ParameterHistory</a>:<br>
+<dl><dt><a name="PredictionHistory-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PredictionHistory-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PredictionHistory-append"><strong>append</strong></a>(self, time_stamp, two_factor_model)</dt><dd><tt>adds&nbsp;parameter&nbsp;from&nbsp;two&nbsp;factor&nbsp;model&nbsp;with&nbsp;given&nbsp;time&nbsp;stamp&nbsp;to&nbsp;the&nbsp;history</tt></dd></dl>
+
+<dl><dt><a name="PredictionHistory-get_modelpardict_t"><strong>get_modelpardict_t</strong></a>(self, time_index, modelid<font color="#909090">='model_from_calhist'</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;model&nbsp;parameter&nbsp;as&nbsp;a&nbsp;dict&nbsp;given&nbsp;a&nbsp;time&nbsp;index&nbsp;time_index&nbsp;for&nbsp;the&nbsp;model&nbsp;history</tt></dd></dl>
+
+<dl><dt><a name="PredictionHistory-loadf_json"><strong>loadf_json</strong></a>(self, filename)</dt><dd><tt>Loads&nbsp;the&nbsp;model&nbsp;history&nbsp;to&nbsp;a&nbsp;file&nbsp;from&nbsp;json&nbsp;format.&nbsp;Warning:&nbsp;This&nbsp;method&nbsp;overwrites&nbsp;the&nbsp;history&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="PredictionHistory-savef"><strong>savef</strong></a>(self, filename, csv<font color="#909090">=True</font>, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Saves&nbsp;the&nbsp;model&nbsp;history&nbsp;to&nbsp;a&nbsp;file&nbsp;in&nbsp;format:<br>
+a)&nbsp;csv&nbsp;format&nbsp;if&nbsp;csv==True&nbsp;using&nbsp;pandas&nbsp;or&nbsp;<br>
+b)&nbsp;json&nbsp;format,&nbsp;else&nbsp;<br>
+The&nbsp;columns&nbsp;are&nbsp;[time,&nbsp;bid&nbsp;parameters,&nbsp;ask&nbsp;parameters,&nbsp;correlation].&nbsp;<br>
+paramlist&nbsp;can&nbsp;be&nbsp;optionally&nbsp;given&nbsp;to&nbsp;fix&nbsp;the&nbsp;order&nbsp;and&nbsp;selection&nbsp;of&nbsp;parameters.&nbsp;See&nbsp;also&nbsp;to_list&nbsp;for.</tt></dd></dl>
+
+<dl><dt><a name="PredictionHistory-to_dict"><strong>to_dict</strong></a>(self, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;parameters&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;dict&nbsp;of&nbsp;lists.&nbsp;<br>
+----------<br>
+args:<br>
+paramlist=None&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;form&nbsp;['outparamkey1',&nbsp;outparamkey2']&nbsp;with&nbsp;keys&nbsp;which&nbsp;should&nbsp;be&nbsp;considered.&nbsp;Time&nbsp;and&nbsp;Corellation&nbsp;are&nbsp;always&nbsp;included.</tt></dd></dl>
+
+<dl><dt><a name="PredictionHistory-to_list"><strong>to_list</strong></a>(self, paramlist<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;parameters&nbsp;in&nbsp;form&nbsp;of&nbsp;a&nbsp;list&nbsp;of&nbsp;lists&nbsp;of&nbsp;format.<br>
+----------<br>
+args:<br>
+paramlist=None&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;form&nbsp;['outparamkey1',&nbsp;outparamkey2']&nbsp;in&nbsp;which&nbsp;output&nbsp;is&nbsp;written<br>
+&nbsp;<br>
+Output:<br>
+[['Time',&nbsp;timepoint1,&nbsp;timepoint2,...],&nbsp;[param1_bid,&nbsp;param1_bid[timepoint1],...],...]<br>
+if&nbsp;paramlist&nbsp;is&nbsp;not&nbsp;None,&nbsp;then&nbsp;<br>
+[['Time',&nbsp;timepoint1,&nbsp;timepoint2,...],&nbsp;[&nbsp;outparamkey1',&nbsp;outparamvalue1[timepoint1],...],...,&nbsp;['rho',&nbsp;...]</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-fit_profile_to_data"><strong>fit_profile_to_data</strong></a>(bidprofile, askprofile)</dt><dd><tt>Creates&nbsp;and&nbsp;4&nbsp;LOBLinearTwoFactor&nbsp;models&nbsp;and&nbsp;fits&nbsp;them&nbsp;to&nbsp;the&nbsp;bid&nbsp;and&nbsp;ask&nbsp;profiles</tt></dd></dl>
+ <dl><dt><a name="-read_calhistory_csv"><strong>read_calhistory_csv</strong></a>(filename)</dt><dd><tt>Loads&nbsp;the&nbsp;model&nbsp;history&nbsp;to&nbsp;a&nbsp;file&nbsp;from&nbsp;csv&nbsp;format&nbsp;and&nbsp;returns&nbsp;a&nbsp;<a href="#CalibrationHistory">CalibrationHistory</a>&nbsp;object.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>CORRELATION_PAR_STR</strong> = 'Correlation'</td></tr></table>
+</body></html>

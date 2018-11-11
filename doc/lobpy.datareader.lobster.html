@@ -1,0 +1,143 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.datareader.lobster</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.<a href="lobpy.datareader.html"><font color="#ffffff">datareader</font></a>.lobster</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/datareader/lobster.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/datareader/lobster.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;provides&nbsp;the&nbsp;helper&nbsp;functions&nbsp;and&nbsp;the&nbsp;class&nbsp;<a href="#LOBSTERReader">LOBSTERReader</a>,&nbsp;a&nbsp;subclass&nbsp;of&nbsp;<a href="lobpy.datareader.orderbook.html#OBReader">OBReader</a>&nbsp;to&nbsp;read&nbsp;in&nbsp;limit&nbsp;order&nbsp;book&nbsp;data&nbsp;in&nbsp;lobster&nbsp;format.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="csv.html">csv</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="warnings.html">warnings</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="lobpy.datareader.orderbook.html#OBReader">lobpy.datareader.orderbook.OBReader</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.datareader.lobster.html#LOBSTERReader">LOBSTERReader</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBSTERReader">class <strong>LOBSTERReader</strong></a>(<a href="lobpy.datareader.orderbook.html#OBReader">lobpy.datareader.orderbook.OBReader</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="lobpy.datareader.orderbook.html#OBReader">OBReader</a>&nbsp;object&nbsp;specified&nbsp;for&nbsp;using&nbsp;LOBSTER&nbsp;files<br>
+----------&nbsp;<br>
+params:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ticker_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time_start_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time_end_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num_levels_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time_start_calc_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time_end_calc_str<br>
+&nbsp;<br>
+&nbsp;<br>
+Example&nbsp;usage:<br>
+to&nbsp;create&nbsp;an&nbsp;object<br>
+&gt;&gt;&gt;&nbsp;lobreader&nbsp;=&nbsp;<a href="#LOBSTERReader">LOBSTERReader</a>("SYMBOL",&nbsp;"2012-06-21",&nbsp;"34200000",&nbsp;"57600000",&nbsp;"10")<br>
+read&nbsp;market&nbsp;depth&nbsp;on&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;with&nbsp;num_observation&nbsp;number&nbsp;of&nbsp;observations<br>
+&gt;&gt;&gt;&nbsp;dt,&nbsp;time_stamps,&nbsp;depth_bid,&nbsp;depth_ask&nbsp;=&nbsp;lobreader.<a href="#LOBSTERReader-load_marketdepth">load_marketdepth</a>(num_observations)<br>
+read&nbsp;price&nbsp;process&nbsp;on&nbsp;that&nbsp;time&nbsp;grid&nbsp;specified&nbsp;above<br>
+&gt;&gt;&gt;&nbsp;dt2,&nbsp;time_stamps2,&nbsp;price_mid,&nbsp;price_bid,&nbsp;price_ask&nbsp;=&nbsp;lobreader.<a href="#LOBSTERReader-load_marketdepth">load_marketdepth</a>(None)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LOBSTERReader-__init__"><strong>__init__</strong></a>(self, ticker_str, date_str, time_start_str, time_end_str, num_levels_str, time_start_calc_str<font color="#909090">=''</font>, time_end_calc_str<font color="#909090">=''</font>, num_levels_calc_str<font color="#909090">=''</font>)</dt></dl>
+
+<dl><dt><a name="LOBSTERReader-average_profile"><strong>average_profile</strong></a>(self, num_levels_calc_str<font color="#909090">=''</font>, write_outputfile<font color="#909090">=False</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;average&nbsp;oder&nbsp;book&nbsp;profile&nbsp;from&nbsp;the&nbsp;csv&nbsp;sourcefile,&nbsp;averaged&nbsp;in&nbsp;real&nbsp;time.&nbsp;To&nbsp;avoid&nbsp;numerical&nbsp;errors&nbsp;by&nbsp;summing&nbsp;up&nbsp;large&nbsp;numbers,&nbsp;the&nbsp;Kahan&nbsp;Summation&nbsp;algorithm&nbsp;is&nbsp;used&nbsp;for&nbsp;mean&nbsp;computation</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-average_profile_tt"><strong>average_profile_tt</strong></a>(self, num_levels_calc_str<font color="#909090">=''</font>, write_outputfile<font color="#909090">=False</font>)</dt><dd><tt>Computes&nbsp;the&nbsp;average&nbsp;order&nbsp;book&nbsp;profile,&nbsp;averaged&nbsp;over&nbsp;trading&nbsp;time,&nbsp;from&nbsp;the&nbsp;csv&nbsp;sourcefile.&nbsp;To&nbsp;avoid&nbsp;numerical&nbsp;errors&nbsp;by&nbsp;summing&nbsp;up&nbsp;large&nbsp;numbers,&nbsp;the&nbsp;Kahan&nbsp;Summation&nbsp;algorithm&nbsp;is&nbsp;used&nbsp;for&nbsp;mean&nbsp;computation&nbsp;<br>
+----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_calc:&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;levels&nbsp;which&nbsp;should&nbsp;be&nbsp;considered&nbsp;for&nbsp;the&nbsp;output<br>
+&nbsp;&nbsp;&nbsp;&nbsp;write_output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;True,&nbsp;then&nbsp;the&nbsp;average&nbsp;order&nbsp;book&nbsp;profile&nbsp;is&nbsp;stored&nbsp;as&nbsp;a&nbsp;csv&nbsp;file<br>
+----------<br>
+output:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(mean_bid,&nbsp;mean_ask)&nbsp;&nbsp;in&nbsp;format&nbsp;of&nbsp;numpy&nbsp;arrays</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-create_filestr"><strong>create_filestr</strong></a>(self, identifier_str, num_levels<font color="#909090">=None</font>)</dt><dd><tt>Creates&nbsp;lobster&nbsp;type&nbsp;file&nbsp;string</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-load_profile_snapshot"><strong>load_profile_snapshot</strong></a>(self, time_stamp, num_levels_calc<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;a&nbsp;two&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;snapshots&nbsp;of&nbsp;the&nbsp;bid-&nbsp;and&nbsp;ask-side&nbsp;of&nbsp;the&nbsp;order&nbsp;book&nbsp;at&nbsp;a&nbsp;given&nbsp;time&nbsp;stamp<br>
+Output:<br>
+bid_prices,&nbsp;bid_volume,&nbsp;ask_prices,&nbsp;ask_volume</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-set_timecalc"><strong>set_timecalc</strong></a>(self, time_start_calc_str, time_end_calc_str)</dt></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.datareader.orderbook.html#OBReader">lobpy.datareader.orderbook.OBReader</a>:<br>
+<dl><dt><a name="LOBSTERReader-add_data"><strong>add_data</strong></a>(self, key_str, data, overwrite<font color="#909090">=True</font>)</dt><dd><tt>Adds&nbsp;data&nbsp;to&nbsp;the&nbsp;data&nbsp;dict.<br>
+---------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;key_str:&nbsp;&nbsp;&nbsp;&nbsp;Key&nbsp;to&nbsp;store&nbsp;the&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;to&nbsp;be&nbsp;stored<br>
+&nbsp;&nbsp;&nbsp;&nbsp;overwrite:&nbsp;&nbsp;If&nbsp;False&nbsp;and&nbsp;data&nbsp;are&nbsp;stored&nbsp;already&nbsp;in&nbsp;key,&nbsp;then&nbsp;a&nbsp;warning&nbsp;will&nbsp;be&nbsp;raised&nbsp;and&nbsp;False&nbsp;will&nbsp;be&nbsp;returned</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-average_profile_from_file"><strong>average_profile_from_file</strong></a>(self, num_levels_calc_str<font color="#909090">=''</font>, write_outputfile<font color="#909090">=False</font>)</dt></dl>
+
+<dl><dt><a name="LOBSTERReader-clear"><strong>clear</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBSTERReader-get_data_from_file"><strong>get_data_from_file</strong></a>(self, filename<font color="#909090">=''</font>)</dt><dd><tt>Loads&nbsp;the&nbsp;order&nbsp;book&nbsp;data&nbsp;from&nbsp;a&nbsp;csv&nbsp;file&nbsp;with&nbsp;format&nbsp;bidprofile,&nbsp;askprofile</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-load_marketdepth"><strong>load_marketdepth</strong></a>(self, num_observations, num_levels_calc_str<font color="#909090">=''</font>, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;market&nbsp;depths&nbsp;at&nbsp;the&nbsp;top&nbsp;of&nbsp;the&nbsp;book&nbsp;by&nbsp;averaging&nbsp;the&nbsp;order&nbsp;volume&nbsp;in&nbsp;the&nbsp;first&nbsp;num_level&nbsp;buckets.&nbsp;The&nbsp;data&nbsp;are&nbsp;extracted&nbsp;on&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-load_ordervolume"><strong>load_ordervolume</strong></a>(self, num_observations, num_levels_calc_str<font color="#909090">=''</font>, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;volume&nbsp;of&nbsp;orders&nbsp;in&nbsp;the&nbsp;first&nbsp;num_level&nbsp;buckets&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.&nbsp;If&nbsp;num_obersvations&nbsp;is&nbsp;None,&nbsp;then&nbsp;the&nbsp;volume&nbsp;will&nbsp;be&nbsp;extracted&nbsp;on&nbsp;the&nbsp;time&nbsp;grid&nbsp;given&nbsp;in&nbsp;the&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-load_ordervolume_levelx"><strong>load_ordervolume_levelx</strong></a>(self, num_observations, level_x, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;volume&nbsp;of&nbsp;orders&nbsp;in&nbsp;the&nbsp;level_xth&nbsp;buckets&nbsp;on&nbsp;bid&nbsp;and&nbsp;ask&nbsp;time&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.&nbsp;If&nbsp;num_obersvations&nbsp;is&nbsp;None,&nbsp;then&nbsp;the&nbsp;volume&nbsp;will&nbsp;be&nbsp;extracted&nbsp;on&nbsp;the&nbsp;time&nbsp;grid&nbsp;given&nbsp;in&nbsp;the&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-load_prices"><strong>load_prices</strong></a>(self, num_observations, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;price&nbsp;on&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;mid&nbsp;price&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-load_volume_process"><strong>load_volume_process</strong></a>(self, num_observations, num_levels_calc_str<font color="#909090">=''</font>, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;volume&nbsp;of&nbsp;orders&nbsp;in&nbsp;the&nbsp;first&nbsp;num_level&nbsp;buckets&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-remove_data"><strong>remove_data</strong></a>(self, key_str)</dt><dd><tt>Removes&nbsp;data&nbsp;stored&nbsp;with&nbsp;key&nbsp;key_str&nbsp;from&nbsp;data&nbsp;dict</tt></dd></dl>
+
+<dl><dt><a name="LOBSTERReader-set_obfilename"><strong>set_obfilename</strong></a>(filename)</dt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-create_lobster_filename"><strong>create_lobster_filename</strong></a>(ticker_str, date_str, time_start_str, time_end_str, file_type_str, num_levels)</dt></dl>
+ <dl><dt><a name="-split_lobster_filename"><strong>split_lobster_filename</strong></a>(filename)</dt><dd><tt>splits&nbsp;the&nbsp;LOBSTER-type&nbsp;filename&nbsp;into&nbsp;Ticker,&nbsp;Date,&nbsp;Time&nbsp;Start,&nbsp;Time&nbsp;End,&nbsp;File&nbsp;Type,&nbsp;Number&nbsp;of&nbsp;Levels</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>AGLOBAL</strong> = 0<br>
+<strong>AV_ORDERBOOK_FILE_ID</strong> = 'av-orderbook'<br>
+<strong>DEPTH_FILE_ID</strong> = 'marketdepth'<br>
+<strong>MESSAGE_FILE_ID</strong> = 'message'<br>
+<strong>ORDERBOOK_FILE_ID</strong> = 'orderbook'<br>
+<strong>PRICE_FILE_ID</strong> = 'best_prices'<br>
+<strong>TVOLPROC_FILE_ID</strong> = 'ordervolume'</td></tr></table>
+</body></html>

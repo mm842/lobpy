@@ -1,0 +1,373 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.datareader.orderbook</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.<a href="lobpy.datareader.html"><font color="#ffffff">datareader</font></a>.orderbook</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/datareader/orderbook.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/datareader/orderbook.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+&nbsp;<br>
+This&nbsp;module&nbsp;provides&nbsp;the&nbsp;class&nbsp;<a href="#OBReader">OBReader</a>&nbsp;which&nbsp;defines&nbsp;functionality&nbsp;to&nbsp;read&nbsp;in&nbsp;limit&nbsp;order&nbsp;book&nbsp;data&nbsp;and&nbsp;return&nbsp;the&nbsp;relevant&nbsp;parts&nbsp;as&nbsp;numpy&nbsp;arrays.&nbsp;Note&nbsp;that&nbsp;no&nbsp;specific&nbsp;format&nbsp;of&nbsp;the&nbsp;data&nbsp;is&nbsp;required&nbsp;and&nbsp;thus,&nbsp;<a href="#OBReader">OBReader</a>&nbsp;does&nbsp;not&nbsp;provide&nbsp;full&nbsp;functionability.&nbsp;This&nbsp;should&nbsp;be&nbsp;provided&nbsp;by&nbsp;a&nbsp;suitable&nbsp;subclass&nbsp;for&nbsp;each&nbsp;specific&nbsp;data&nbsp;format.&nbsp;(see&nbsp;lobster.py&nbsp;for&nbsp;a&nbsp;reader&nbsp;for&nbsp;LOBSTER&nbsp;files)</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="csv.html">csv</a><br>
+</td><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="warnings.html">warnings</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>(<a href="exceptions.html#BaseException">exceptions.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.datareader.orderbook.html#Error">Error</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.datareader.orderbook.html#DataFileError">DataFileError</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.datareader.orderbook.html#DataRequestError">DataRequestError</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.datareader.orderbook.html#FunctionCallError">FunctionCallError</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="lobpy.datareader.orderbook.html#OBReader">OBReader</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DataFileError">class <strong>DataFileError</strong></a>(<a href="lobpy.datareader.orderbook.html#Error">Error</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="exceptions.html#Exception">Exception</a>&nbsp;raised&nbsp;for&nbsp;errors&nbsp;concerning&nbsp;the&nbsp;data&nbsp;file.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;expression&nbsp;--&nbsp;input&nbsp;expression&nbsp;in&nbsp;which&nbsp;the&nbsp;error&nbsp;occurred<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;--&nbsp;explanation&nbsp;of&nbsp;the&nbsp;error<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.datareader.orderbook.html#DataFileError">DataFileError</a></dd>
+<dd><a href="lobpy.datareader.orderbook.html#Error">Error</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="DataFileError-__init__"><strong>__init__</strong></a>(self, expression, message)</dt></dl>
+
+<dl><dt><a name="DataFileError-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="lobpy.datareader.orderbook.html#Error">Error</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#DataFileError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="DataFileError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DataFileError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DataFileError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#DataFileError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DataFileError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#DataFileError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="DataFileError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#DataFileError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="DataFileError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DataFileError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#DataFileError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="DataFileError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DataFileError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="DataFileError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DataFileError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DataRequestError">class <strong>DataRequestError</strong></a>(<a href="lobpy.datareader.orderbook.html#Error">Error</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="exceptions.html#Exception">Exception</a>&nbsp;raised&nbsp;for&nbsp;errors&nbsp;concerning&nbsp;the&nbsp;data&nbsp;file.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;expression&nbsp;--&nbsp;input&nbsp;expression&nbsp;in&nbsp;which&nbsp;the&nbsp;error&nbsp;occurred<br>
+&nbsp;&nbsp;&nbsp;&nbsp;message&nbsp;--&nbsp;explanation&nbsp;of&nbsp;the&nbsp;error<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.datareader.orderbook.html#DataRequestError">DataRequestError</a></dd>
+<dd><a href="lobpy.datareader.orderbook.html#Error">Error</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="DataRequestError-__init__"><strong>__init__</strong></a>(self, message)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="lobpy.datareader.orderbook.html#Error">Error</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#DataRequestError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="DataRequestError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DataRequestError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DataRequestError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#DataRequestError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DataRequestError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#DataRequestError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="DataRequestError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#DataRequestError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="DataRequestError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DataRequestError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#DataRequestError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="DataRequestError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DataRequestError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="DataRequestError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DataRequestError-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#DataRequestError-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
+
+<dl><dt><a name="DataRequestError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Error">class <strong>Error</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Base&nbsp;class&nbsp;for&nbsp;exceptions&nbsp;in&nbsp;this&nbsp;module.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.datareader.orderbook.html#Error">Error</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="Error-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#Error-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="Error-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="Error-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="Error-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="Error-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="Error-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Error-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="Error-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="Error-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="Error-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#Error-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
+
+<dl><dt><a name="Error-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FunctionCallError">class <strong>FunctionCallError</strong></a>(<a href="lobpy.datareader.orderbook.html#Error">Error</a>)</font></td></tr>
+    
+<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.datareader.orderbook.html#FunctionCallError">FunctionCallError</a></dd>
+<dd><a href="lobpy.datareader.orderbook.html#Error">Error</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="FunctionCallError-__init__"><strong>__init__</strong></a>(self, expression, message)</dt></dl>
+
+<dl><dt><a name="FunctionCallError-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="lobpy.datareader.orderbook.html#Error">Error</a>:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#FunctionCallError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="FunctionCallError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#FunctionCallError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="FunctionCallError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#FunctionCallError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="FunctionCallError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#FunctionCallError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="FunctionCallError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#FunctionCallError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="FunctionCallError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="FunctionCallError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#FunctionCallError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="FunctionCallError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#FunctionCallError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="FunctionCallError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="FunctionCallError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="OBReader">class <strong>OBReader</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;<a href="#OBReader">OBReader</a>&nbsp;offers&nbsp;support&nbsp;to&nbsp;extract&nbsp;features&nbsp;from&nbsp;limit&nbsp;order&nbsp;book&nbsp;data.<br>
+----------&nbsp;<br>
+params:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;lobfilename:&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;where&nbsp;the&nbsp;order&nbsp;book&nbsp;data&nbsp;are&nbsp;stored<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data:&nbsp;&nbsp;&nbsp;&nbsp;dict&nbsp;object&nbsp;which&nbsp;contains&nbsp;the&nbsp;data.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels:&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;price&nbsp;levels&nbsp;to&nbsp;consider.&nbsp;If&nbsp;None,&nbsp;it&nbsp;is&nbsp;expected&nbsp;that&nbsp;this&nbsp;will&nbsp;be&nbsp;clear&nbsp;from&nbsp;data<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="OBReader-__init__"><strong>__init__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OBReader-add_data"><strong>add_data</strong></a>(self, key_str, data, overwrite<font color="#909090">=True</font>)</dt><dd><tt>Adds&nbsp;data&nbsp;to&nbsp;the&nbsp;data&nbsp;dict.<br>
+---------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;key_str:&nbsp;&nbsp;&nbsp;&nbsp;Key&nbsp;to&nbsp;store&nbsp;the&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;to&nbsp;be&nbsp;stored<br>
+&nbsp;&nbsp;&nbsp;&nbsp;overwrite:&nbsp;&nbsp;If&nbsp;False&nbsp;and&nbsp;data&nbsp;are&nbsp;stored&nbsp;already&nbsp;in&nbsp;key,&nbsp;then&nbsp;a&nbsp;warning&nbsp;will&nbsp;be&nbsp;raised&nbsp;and&nbsp;False&nbsp;will&nbsp;be&nbsp;returned</tt></dd></dl>
+
+<dl><dt><a name="OBReader-average_profile_from_file"><strong>average_profile_from_file</strong></a>(self, num_levels_calc_str<font color="#909090">=''</font>, write_outputfile<font color="#909090">=False</font>)</dt></dl>
+
+<dl><dt><a name="OBReader-average_profile_tt"><strong>average_profile_tt</strong></a>(self, num_levels_output<font color="#909090">=''</font>, write_outputfile<font color="#909090">=False</font>)</dt></dl>
+
+<dl><dt><a name="OBReader-clear"><strong>clear</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="OBReader-create_filestr"><strong>create_filestr</strong></a>(self, identifier_str, num_levels<font color="#909090">=None</font>)</dt><dd><tt>Create&nbsp;a&nbsp;file&nbsp;string&nbsp;which&nbsp;allows&nbsp;unified&nbsp;file&nbsp;names</tt></dd></dl>
+
+<dl><dt><a name="OBReader-get_data_from_file"><strong>get_data_from_file</strong></a>(self, filename<font color="#909090">=''</font>)</dt><dd><tt>Loads&nbsp;the&nbsp;order&nbsp;book&nbsp;data&nbsp;from&nbsp;a&nbsp;csv&nbsp;file&nbsp;with&nbsp;format&nbsp;bidprofile,&nbsp;askprofile</tt></dd></dl>
+
+<dl><dt><a name="OBReader-load_marketdepth"><strong>load_marketdepth</strong></a>(self, num_observations, num_levels_calc_str<font color="#909090">=''</font>, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;market&nbsp;depths&nbsp;at&nbsp;the&nbsp;top&nbsp;of&nbsp;the&nbsp;book&nbsp;by&nbsp;averaging&nbsp;the&nbsp;order&nbsp;volume&nbsp;in&nbsp;the&nbsp;first&nbsp;num_level&nbsp;buckets.&nbsp;The&nbsp;data&nbsp;are&nbsp;extracted&nbsp;on&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="OBReader-load_ordervolume"><strong>load_ordervolume</strong></a>(self, num_observations, num_levels_calc_str<font color="#909090">=''</font>, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;volume&nbsp;of&nbsp;orders&nbsp;in&nbsp;the&nbsp;first&nbsp;num_level&nbsp;buckets&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.&nbsp;If&nbsp;num_obersvations&nbsp;is&nbsp;None,&nbsp;then&nbsp;the&nbsp;volume&nbsp;will&nbsp;be&nbsp;extracted&nbsp;on&nbsp;the&nbsp;time&nbsp;grid&nbsp;given&nbsp;in&nbsp;the&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="OBReader-load_ordervolume_levelx"><strong>load_ordervolume_levelx</strong></a>(self, num_observations, level_x, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;volume&nbsp;of&nbsp;orders&nbsp;in&nbsp;the&nbsp;level_xth&nbsp;buckets&nbsp;on&nbsp;bid&nbsp;and&nbsp;ask&nbsp;time&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.&nbsp;If&nbsp;num_obersvations&nbsp;is&nbsp;None,&nbsp;then&nbsp;the&nbsp;volume&nbsp;will&nbsp;be&nbsp;extracted&nbsp;on&nbsp;the&nbsp;time&nbsp;grid&nbsp;given&nbsp;in&nbsp;the&nbsp;data</tt></dd></dl>
+
+<dl><dt><a name="OBReader-load_prices"><strong>load_prices</strong></a>(self, num_observations, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;price&nbsp;on&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;as&nbsp;well&nbsp;as&nbsp;the&nbsp;mid&nbsp;price&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="OBReader-load_profile_snapshot"><strong>load_profile_snapshot</strong></a>(self, time_stamp, num_levels_calc<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;a&nbsp;two&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;snapshots&nbsp;of&nbsp;the&nbsp;bid-&nbsp;and&nbsp;ask-side&nbsp;of&nbsp;the&nbsp;order&nbsp;book&nbsp;at&nbsp;a&nbsp;given&nbsp;time&nbsp;stamp<br>
+Output:<br>
+bid_prices,&nbsp;bid_volume,&nbsp;ask_prices,&nbsp;ask_volume</tt></dd></dl>
+
+<dl><dt><a name="OBReader-load_volume_process"><strong>load_volume_process</strong></a>(self, num_observations, num_levels_calc_str<font color="#909090">=''</font>, write_output<font color="#909090">=False</font>)</dt><dd><tt>Extracts&nbsp;the&nbsp;volume&nbsp;of&nbsp;orders&nbsp;in&nbsp;the&nbsp;first&nbsp;num_level&nbsp;buckets&nbsp;at&nbsp;a&nbsp;uniform&nbsp;time&nbsp;grid&nbsp;of&nbsp;num_observations&nbsp;observations&nbsp;from&nbsp;the&nbsp;interval&nbsp;[time_start_calc,&nbsp;time_end_calc].&nbsp;The&nbsp;volume&nbsp;process&nbsp;is&nbsp;extrapolated&nbsp;constantly&nbsp;on&nbsp;the&nbsp;last&nbsp;level&nbsp;in&nbsp;the&nbsp;file,&nbsp;for&nbsp;the&nbsp;case&nbsp;that&nbsp;time_end_calc&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;last&nbsp;time&nbsp;stamp&nbsp;in&nbsp;the&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="OBReader-remove_data"><strong>remove_data</strong></a>(self, key_str)</dt><dd><tt>Removes&nbsp;data&nbsp;stored&nbsp;with&nbsp;key&nbsp;key_str&nbsp;from&nbsp;data&nbsp;dict</tt></dd></dl>
+
+<dl><dt><a name="OBReader-set_obfilename"><strong>set_obfilename</strong></a>(filename)</dt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-get_data_from_file"><strong>get_data_from_file</strong></a>(filename)</dt><dd><tt>Loads&nbsp;the&nbsp;order&nbsp;book&nbsp;data&nbsp;from&nbsp;a&nbsp;csv&nbsp;file&nbsp;with&nbsp;format&nbsp;bidprofile;&nbsp;askprofile</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>AGLOBAL</strong> = 0<br>
+<strong>AV_ORDERBOOK_FILE_ID</strong> = 'av-orderbook'<br>
+<strong>DEPTH_FILE_ID</strong> = 'marketdepth'<br>
+<strong>MESSAGE_FILE_ID</strong> = 'message'<br>
+<strong>ORDERBOOK_FILE_ID</strong> = 'orderbook'<br>
+<strong>PRICE_FILE_ID</strong> = 'best_prices'<br>
+<strong>TVOLPROC_FILE_ID</strong> = 'ordervolume'</td></tr></table>
+</body></html>

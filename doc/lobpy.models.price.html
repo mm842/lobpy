@@ -1,0 +1,175 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.models.price</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.<a href="lobpy.models.html"><font color="#ffffff">models</font></a>.price</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/price.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/price.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+&nbsp;<br>
+price.py&nbsp;<br>
+&nbsp;<br>
+Provides&nbsp;the&nbsp;class&nbsp;<a href="#PriceModel">PriceModel</a>&nbsp;and&nbsp;possibly&nbsp;additional&nbsp;methods&nbsp;for&nbsp;price&nbsp;modeling.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.loblinear.html#OrderVolumeMeanRev">lobpy.models.loblinear.OrderVolumeMeanRev</a>(<a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">lobpy.models.loblinear.LOBLinearTwoFactor</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.price.html#PriceModel">PriceModel</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="PriceModel">class <strong>PriceModel</strong></a>(<a href="lobpy.models.loblinear.html#OrderVolumeMeanRev">lobpy.models.loblinear.OrderVolumeMeanRev</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;provides&nbsp;the&nbsp;price&nbsp;models&nbsp;which&nbsp;are&nbsp;induced&nbsp;by&nbsp;the&nbsp;linear&nbsp;SPDELOB&nbsp;models&nbsp;in&nbsp;loblinear.py<br>
+---------<br>
+fields:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modelid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;identifier&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profile_bid:&nbsp;&nbsp;&nbsp;&nbsp;bid&nbsp;profile,&nbsp;LOBProfile&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;profile_ask:&nbsp;&nbsp;&nbsp;&nbsp;ask&nbsp;profile,&nbsp;LOBProfile&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dynamics_bid:&nbsp;&nbsp;&nbsp;bid&nbsp;dynamics&nbsp;of&nbsp;depth,&nbsp;LOBFactorProcess&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dynamics_ask:&nbsp;&nbsp;&nbsp;ask&nbsp;dynamics&nbsp;of&nbsp;depth,&nbsp;LOBFactorProcess&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rho:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;correlation&nbsp;between&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="lobpy.models.price.html#PriceModel">PriceModel</a></dd>
+<dd><a href="lobpy.models.loblinear.html#OrderVolumeMeanRev">lobpy.models.loblinear.OrderVolumeMeanRev</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">lobpy.models.loblinear.LOBLinearTwoFactor</a></dd>
+<dd><a href="lobpy.models.loblinear.html#LOBLinear">lobpy.models.loblinear.LOBLinear</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="PriceModel-__init__"><strong>__init__</strong></a>(self, modelid<font color="#909090">='PriceModelID'</font>, num_levels<font color="#909090">=2</font>, p0<font color="#909090">=0.0</font>, tick_size<font color="#909090">=0.01</font>)</dt><dd><tt>Optional&nbsp;parameter&nbsp;for&nbsp;initialization:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;modelid="<a href="#PriceModel">PriceModel</a>",&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;of&nbsp;the&nbsp;price&nbsp;model<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels=2,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;levels&nbsp;considered&nbsp;for&nbsp;depths&nbsp;modeling<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p0=0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial&nbsp;price&nbsp;level</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-get_depth"><strong>get_depth</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;initial&nbsp;depth</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-get_vol"><strong>get_vol</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;mid&nbsp;price&nbsp;volatility.</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-prob_upmove"><strong>prob_upmove</strong></a>(self, t1, threshold<font color="#909090">=0.0</font>)</dt><dd><tt>Returns&nbsp;the&nbsp;probability&nbsp;that&nbsp;the&nbsp;price&nbsp;is&nbsp;larger&nbsp;than&nbsp;the&nbsp;threshold&nbsp;at&nbsp;time&nbsp;point&nbsp;t1</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-set_depth"><strong>set_depth</strong></a>(self, depth_bidask)</dt><dd><tt>Set&nbsp;the&nbsp;initial&nbsp;depths&nbsp;on&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;<br>
+arg:&nbsp;depth_bidask&nbsp;=&nbsp;(depth_bid,&nbsp;depth_ask)</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-set_p0"><strong>set_p0</strong></a>(self, p0)</dt><dd><tt>Set&nbsp;mid&nbsp;price&nbsp;p0</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-simulate"><strong>simulate</strong></a>(self, dt, num_tpoints, out<font color="#909090">=None</font>, ret_depths<font color="#909090">=False</font>)</dt><dd><tt>Simulate&nbsp;a&nbsp;trijectory&nbsp;of&nbsp;the&nbsp;price,&nbsp;with&nbsp;grid&nbsp;size&nbsp;dt&nbsp;and&nbsp;using&nbsp;num_tpoints&nbsp;future&nbsp;time&nbsp;points.&nbsp;Optionally&nbsp;one&nbsp;can&nbsp;give&nbsp;a&nbsp;numpy&nbsp;array&nbsp;out&nbsp;of&nbsp;length&nbsp;num_tpoints&nbsp;+&nbsp;1&nbsp;in&nbsp;which&nbsp;the&nbsp;path&nbsp;will&nbsp;be&nbsp;stored.&nbsp;If&nbsp;ret_depths&nbsp;is&nbsp;True&nbsp;then&nbsp;also&nbsp;the&nbsp;simulated&nbsp;depths&nbsp;processes&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;are&nbsp;returned.</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-simulate_depth"><strong>simulate_depth</strong></a>(self, dt, num_tpoints, return_bmincr<font color="#909090">=False</font>)</dt><dd><tt>Simulate&nbsp;a&nbsp;trijectory&nbsp;of&nbsp;the&nbsp;depth&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;using&nbsp;Euler&nbsp;scheme.&nbsp;This&nbsp;function&nbsp;calls&nbsp;simulate_dynamics&nbsp;from&nbsp;<a href="lobpy.models.loblinear.html#OrderVolumeMeanRev">OrderVolumeMeanRev</a>.<br>
+----------<br>
+args:<br>
+dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid&nbsp;size<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;on&nbsp;the&nbsp;grid<br>
+return_bmincr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;True,&nbsp;then&nbsp;also&nbsp;the&nbsp;sample&nbsp;paths&nbsp;of&nbsp;the&nbsp;ind.&nbsp;BMs&nbsp;used&nbsp;for&nbsp;simulation&nbsp;will&nbsp;be&nbsp;returned<br>
+&nbsp;<br>
+output:<br>
+path_bid,&nbsp;path_ask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;the&nbsp;simulated&nbsp;paths<br>
+or<br>
+path_bid,&nbsp;path_ask,&nbsp;dw1t,&nbsp;dw2t</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.loblinear.html#OrderVolumeMeanRev">lobpy.models.loblinear.OrderVolumeMeanRev</a>:<br>
+<dl><dt><a name="PriceModel-get_gamma"><strong>get_gamma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PriceModel-get_modelpar_dict"><strong>get_modelpar_dict</strong></a>(self)</dt><dd><tt>returns&nbsp;the&nbsp;model&nbsp;parameters&nbsp;in&nbsp;dict&nbsp;format.&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-get_profilefct"><strong>get_profilefct</strong></a>(self)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-get_profilefct_ask"><strong>get_profilefct_ask</strong></a>(self)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-get_profilefct_bid"><strong>get_profilefct_bid</strong></a>(self)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-init_leastsq"><strong>init_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-init_tv_argmax"><strong>init_tv_argmax</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-init_tv_leastsq"><strong>init_tv_leastsq</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-init_tv_rmax1"><strong>init_tv_rmax1</strong></a>(self, profile_data_bid, profile_data_ask)</dt><dd><tt>Not&nbsp;implemented</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-set_modelpar_dict"><strong>set_modelpar_dict</strong></a>(self, pardict)</dt><dd><tt>sets&nbsp;model&nbsp;parameter&nbsp;to&nbsp;the&nbsp;parameter&nbsp;given&nbsp;in&nbsp;dict&nbsp;format&nbsp;<br>
+Touples&nbsp;are&nbsp;formatted&nbsp;as&nbsp;(bid_value,&nbsp;ask_value)</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.loblinear.html#LOBLinearTwoFactor">lobpy.models.loblinear.LOBLinearTwoFactor</a>:<br>
+<dl><dt><a name="PriceModel-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PriceModel-get_modelid"><strong>get_modelid</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PriceModel-get_mu"><strong>get_mu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PriceModel-get_nu"><strong>get_nu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PriceModel-get_rho"><strong>get_rho</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PriceModel-get_sigma"><strong>get_sigma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="PriceModel-get_z0"><strong>get_z0</strong></a>(self)</dt><dd><tt>Returns&nbsp;bid&nbsp;and&nbsp;ask&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-loadf"><strong>loadf</strong></a>(self, filename)</dt><dd><tt>Creates&nbsp;and&nbsp;loads&nbsp;a&nbsp;model&nbsp;from&nbsp;a&nbsp;file&nbsp;in&nbsp;json&nbsp;format&nbsp;with&nbsp;name&nbsp;filename.lobm</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-savef"><strong>savef</strong></a>(self)</dt><dd><tt>Saves&nbsp;model&nbsp;in&nbsp;a&nbsp;file&nbsp;with&nbsp;name&nbsp;modelid.lobm&nbsp;using&nbsp;json</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-set_gamma"><strong>set_gamma</strong></a>(self, gammas)</dt></dl>
+
+<dl><dt><a name="PriceModel-set_modelid"><strong>set_modelid</strong></a>(self, modelid)</dt></dl>
+
+<dl><dt><a name="PriceModel-set_mu"><strong>set_mu</strong></a>(self, mus)</dt></dl>
+
+<dl><dt><a name="PriceModel-set_nu"><strong>set_nu</strong></a>(self, nus)</dt></dl>
+
+<dl><dt><a name="PriceModel-set_rho"><strong>set_rho</strong></a>(self, rho)</dt></dl>
+
+<dl><dt><a name="PriceModel-set_sigma"><strong>set_sigma</strong></a>(self, sigmas)</dt></dl>
+
+<dl><dt><a name="PriceModel-set_z0"><strong>set_z0</strong></a>(self, z0s)</dt><dd><tt>Set&nbsp;bid&nbsp;and&nbsp;ask&nbsp;initial&nbsp;values&nbsp;for&nbsp;z0</tt></dd></dl>
+
+<dl><dt><a name="PriceModel-simulate_dynamics"><strong>simulate_dynamics</strong></a>(self, dt, num_tpoints, return_bmincr<font color="#909090">=False</font>)</dt><dd><tt>Simulate&nbsp;a&nbsp;trijectory&nbsp;of&nbsp;the&nbsp;depth&nbsp;for&nbsp;bid&nbsp;and&nbsp;ask&nbsp;side&nbsp;using&nbsp;Euler&nbsp;scheme.&nbsp;<br>
+----------<br>
+args:<br>
+dt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grid&nbsp;size<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;time&nbsp;points&nbsp;on&nbsp;the&nbsp;grid<br>
+return_bmincr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;True,&nbsp;then&nbsp;also&nbsp;the&nbsp;sample&nbsp;paths&nbsp;of&nbsp;the&nbsp;ind.&nbsp;BMs&nbsp;used&nbsp;for&nbsp;simulation&nbsp;will&nbsp;be&nbsp;returned<br>
+&nbsp;<br>
+output:<br>
+path_bid,&nbsp;path_ask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;arrays&nbsp;with&nbsp;the&nbsp;simulated&nbsp;paths<br>
+or<br>
+path_bid,&nbsp;path_ask,&nbsp;dw1t,&nbsp;dw2t</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>PRICEMODEL_STR</strong> = 'PriceModel'</td></tr></table>
+</body></html>

@@ -1,0 +1,131 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.handler</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.handler</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/handler.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/handler.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+handler.py<br>
+&nbsp;<br>
+&nbsp;<br>
+contains&nbsp;some&nbsp;functions&nbsp;to&nbsp;work&nbsp;with&nbsp;the&nbsp;model</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="lobpy.models.calibration.html">lobpy.models.calibration</a><br>
+<a href="lobpy.models.estimators.html">lobpy.models.estimators</a><br>
+<a href="lobpy.datareader.lobster.html">lobpy.datareader.lobster</a><br>
+</td><td width="25%" valign=top><a href="lobpy.models.loblinear.html">lobpy.models.loblinear</a><br>
+<a href="lobpy.models.plots.html">lobpy.models.plots</a><br>
+<a href="lobpy.models.price.html">lobpy.models.price</a><br>
+</td><td width="25%" valign=top><a href="lobpy.datareader.lobster.html">lobpy.datareader.lobster</a><br>
+<a href="lobpy.models.loblineartools.html">lobpy.models.loblineartools</a><br>
+<a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+<a href="pandas.html">pandas</a><br>
+<a href="sys.html">sys</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-calibrate_mrevdynamics_lobster_rf"><strong>calibrate_mrevdynamics_lobster_rf</strong></a>(ticker_str, date_str, time_start_data, time_end_data, time_start_calc, time_end_calc, num_levels_data, num_levels_calc, ntimepoints_grid, ntimesteps_cal, ntimesteps_nextcal, cal_to_average<font color="#909090">=False</font>, cal_to_average_classic<font color="#909090">=False</font>)</dt><dd><tt>Calibrates&nbsp;mean&nbsp;reverting&nbsp;model&nbsp;to&nbsp;order&nbsp;book&nbsp;volume&nbsp;loaded&nbsp;from&nbsp;lobster&nbsp;data&nbsp;&nbsp;<br>
+-----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ticker_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimepoints_grid,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimesteps_cal,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimesteps_nextcal,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cal_to_average=False&nbsp;&nbsp;&nbsp;&nbsp;calibration&nbsp;to&nbsp;total&nbsp;volume&nbsp;(if&nbsp;False)&nbsp;in&nbsp;the&nbsp;first&nbsp;buckets&nbsp;or&nbsp;average<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cal_to_average_classic=False&nbsp;&nbsp;&nbsp;&nbsp;calibration&nbsp;to&nbsp;total&nbsp;volume&nbsp;(if&nbsp;False)&nbsp;in&nbsp;the&nbsp;first&nbsp;buckets&nbsp;or&nbsp;average&nbsp;-&nbsp;by&nbsp;just&nbsp;averaging&nbsp;after&nbsp;extraction</tt></dd></dl>
+ <dl><dt><a name="-calibrate_profile_lobster_full"><strong>calibrate_profile_lobster_full</strong></a>(ticker_str, date_str, time_start_data, time_end_data, time_start_calc, time_end_calc, num_levels_data, num_levels_calc, time_cal)</dt><dd><tt>Splits&nbsp;the&nbsp;day&nbsp;into&nbsp;time&nbsp;intervals&nbsp;of&nbsp;specified&nbsp;size&nbsp;and&nbsp;fits&nbsp;the&nbsp;model&nbsp;profile&nbsp;to&nbsp;the&nbsp;average&nbsp;profile&nbsp;of&nbsp;the&nbsp;order&nbsp;book&nbsp;from&nbsp;lobster&nbsp;data.&nbsp;4&nbsp;different&nbsp;fitting&nbsp;methods&nbsp;are&nbsp;used.&nbsp;In&nbsp;addition,&nbsp;the&nbsp;average&nbsp;profile&nbsp;for&nbsp;the&nbsp;whole&nbsp;day&nbsp;will&nbsp;be&nbsp;fitted.<br>
+-----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ticker_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_cal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;for&nbsp;averageing&nbsp;in&nbsp;ms</tt></dd></dl>
+ <dl><dt><a name="-calibrate_profile_lobster_new"><strong>calibrate_profile_lobster_new</strong></a>(ticker_str, date_str, time_start_data, time_end_data, time_start_calc, time_end_calc, num_levels_data, num_levels_calc, time_cal, cal_method_profile<font color="#909090">='LSQF'</font>)</dt><dd><tt>Splits&nbsp;the&nbsp;day&nbsp;into&nbsp;time&nbsp;intervals&nbsp;of&nbsp;specified&nbsp;size&nbsp;and&nbsp;fits&nbsp;the&nbsp;model&nbsp;profile&nbsp;to&nbsp;the&nbsp;average&nbsp;profile&nbsp;of&nbsp;the&nbsp;order&nbsp;book&nbsp;in&nbsp;the&nbsp;respective&nbsp;periods,&nbsp;reading&nbsp;lobster&nbsp;data.&nbsp;In&nbsp;addition,&nbsp;the&nbsp;average&nbsp;profile&nbsp;for&nbsp;the&nbsp;whole&nbsp;day&nbsp;will&nbsp;be&nbsp;fi<br>
+-----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ticker_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cal_method_profile="LSQF",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_cal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;for&nbsp;averageing&nbsp;in&nbsp;ms</tt></dd></dl>
+ <dl><dt><a name="-extract_price_lobster"><strong>extract_price_lobster</strong></a>(ticker_str, date_str, time_start_data, time_end_data, time_start_calc, time_end_calc, num_levels_data, ntimepoints_grid)</dt><dd><tt>Extract&nbsp;the&nbsp;volume&nbsp;process&nbsp;from&nbsp;lobster&nbsp;and&nbsp;save&nbsp;as&nbsp;csv&nbsp;and&nbsp;plots&nbsp;<br>
+----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ticker_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimepoints_grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;None,&nbsp;then&nbsp;the&nbsp;process&nbsp;is&nbsp;extracted&nbsp;for&nbsp;all&nbsp;time&nbsp;points&nbsp;in&nbsp;the&nbsp;data,&nbsp;else&nbsp;a&nbsp;uniform&nbsp;grid&nbsp;is&nbsp;created<br>
+&nbsp;<br>
+OUTPUT:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;produces&nbsp;files&nbsp;with&nbsp;identifier:&nbsp;volume</tt></dd></dl>
+ <dl><dt><a name="-extract_volume_lobster"><strong>extract_volume_lobster</strong></a>(ticker_str, date_str, time_start_data, time_end_data, time_start_calc, time_end_calc, num_levels_data, num_levels_calc, ntimepoints_grid)</dt><dd><tt>Extract&nbsp;the&nbsp;volume&nbsp;process&nbsp;from&nbsp;lobster&nbsp;and&nbsp;save&nbsp;as&nbsp;csv&nbsp;and&nbsp;plots&nbsp;<br>
+----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ticker_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimepoints_grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;None,&nbsp;then&nbsp;the&nbsp;process&nbsp;is&nbsp;extracted&nbsp;for&nbsp;all&nbsp;time&nbsp;points&nbsp;in&nbsp;the&nbsp;data,&nbsp;else&nbsp;a&nbsp;uniform&nbsp;grid&nbsp;is&nbsp;created<br>
+&nbsp;<br>
+OUTPUT:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;produces&nbsp;files&nbsp;with&nbsp;identifier:&nbsp;volume</tt></dd></dl>
+ <dl><dt><a name="-vol_estimation"><strong>vol_estimation</strong></a>(ticker_str, date_str, time_start_data, time_end_data, time_start_calc, time_end_calc, num_levels_data, num_levels_calc, ntimepoints_grid, ntimesteps_cal, ntimesteps_nextcal, ntimesteps_snapshot<font color="#909090">=None</font>)</dt><dd><tt>Predicts&nbsp;the&nbsp;volatility&nbsp;of&nbsp;the&nbsp;price&nbsp;by&nbsp;volatility&nbsp;of&nbsp;the&nbsp;log&nbsp;market&nbsp;depths<br>
+-----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ticker_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;date_str,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_start_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_end_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_data,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;num_levels_calc,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimepoints_grid,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimesteps_cal,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ntimesteps_nextcal,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cal_to_average=False&nbsp;&nbsp;&nbsp;&nbsp;calibration&nbsp;to&nbsp;total&nbsp;volume&nbsp;(if&nbsp;False)&nbsp;in&nbsp;the&nbsp;first&nbsp;buckets&nbsp;or&nbsp;average<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cal_to_average_classic=False&nbsp;&nbsp;&nbsp;&nbsp;calibration&nbsp;to&nbsp;total&nbsp;volume&nbsp;(if&nbsp;False)&nbsp;in&nbsp;the&nbsp;first&nbsp;buckets&nbsp;or&nbsp;average&nbsp;-&nbsp;by&nbsp;just&nbsp;averaging&nbsp;after&nbsp;extraction</tt></dd></dl>
+</td></tr></table>
+</body></html>

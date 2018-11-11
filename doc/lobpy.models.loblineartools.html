@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.models.loblineartools</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.<a href="lobpy.models.html"><font color="#ffffff">models</font></a>.loblineartools</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/loblineartools.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/loblineartools.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+&nbsp;<br>
+&nbsp;lobpy&nbsp;-&nbsp;model&nbsp;-&nbsp;loblineartools<br>
+&nbsp;Helper&nbsp;for&nbsp;linear&nbsp;SPDE&nbsp;models<br>
+&nbsp;Version:&nbsp;v0.1</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="scipy.html">scipy</a><br>
+<a href="scipy.optimize.html">scipy.optimize</a><br>
+</td><td width="25%" valign=top><a href="warnings.html">warnings</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.loblineartools.html#LOBProfile">LOBProfile</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.models.loblineartools.html#LOBProfileScaled">LOBProfileScaled</a>
+</font></dt><dt><font face="helvetica, arial"><a href="lobpy.models.loblineartools.html#LinearDiffusion">LinearDiffusion</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="lobpy.models.loblineartools.html#LOBFactorProcess">LOBFactorProcess</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBFactorProcess">class <strong>LOBFactorProcess</strong></a>(<a href="lobpy.models.loblineartools.html#LinearDiffusion">LinearDiffusion</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Describes&nbsp;a&nbsp;factor&nbsp;process&nbsp;of&nbsp;the&nbsp;linear&nbsp;two&nbsp;factor&nbsp;order&nbsp;book&nbsp;model<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LOBFactorProcess-__init__"><strong>__init__</strong></a>(self, bidask<font color="#909090">='ask'</font>, z0<font color="#909090">=1.0</font>, mu<font color="#909090">=0.0</font>, nu<font color="#909090">=0.0</font>, sigma<font color="#909090">=0.0</font>)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-is_ask"><strong>is_ask</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;self&nbsp;is&nbsp;an&nbsp;ask&nbsp;profile</tt></dd></dl>
+
+<dl><dt><a name="LOBFactorProcess-is_bid"><strong>is_bid</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;self&nbsp;is&nbsp;a&nbsp;bid&nbsp;profile</tt></dd></dl>
+
+<dl><dt><a name="LOBFactorProcess-settoask"><strong>settoask</strong></a>(self)</dt><dd><tt>Sets&nbsp;bidask&nbsp;flag&nbsp;to&nbsp;ask</tt></dd></dl>
+
+<dl><dt><a name="LOBFactorProcess-settobid"><strong>settobid</strong></a>(self)</dt><dd><tt>Sets&nbsp;bidask&nbsp;flag&nbsp;to&nbsp;bid</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="lobpy.models.loblineartools.html#LinearDiffusion">LinearDiffusion</a>:<br>
+<dl><dt><a name="LOBFactorProcess-get_mu"><strong>get_mu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-get_nu"><strong>get_nu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-get_params"><strong>get_params</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;parameters&nbsp;of&nbsp;the&nbsp;dynamics:&nbsp;(mu,&nbsp;nu,&nbsp;sigma)</tt></dd></dl>
+
+<dl><dt><a name="LOBFactorProcess-get_sigma"><strong>get_sigma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-get_z0"><strong>get_z0</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-is_gbm"><strong>is_gbm</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;process&nbsp;is&nbsp;a&nbsp;geometric&nbsp;Brownian&nbsp;motion&nbsp;with&nbsp;drift</tt></dd></dl>
+
+<dl><dt><a name="LOBFactorProcess-is_recgamma"><strong>is_recgamma</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;process&nbsp;is&nbsp;a&nbsp;reciprocal&nbsp;gamma&nbsp;diffusion</tt></dd></dl>
+
+<dl><dt><a name="LOBFactorProcess-set_mu"><strong>set_mu</strong></a>(self, mu)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-set_nu"><strong>set_nu</strong></a>(self, nu)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-set_params"><strong>set_params</strong></a>(self, params)</dt><dd><tt>Set&nbsp;model&nbsp;parameter&nbsp;(mu,&nbsp;nu,&nbsp;sigma)&nbsp;to&nbsp;input</tt></dd></dl>
+
+<dl><dt><a name="LOBFactorProcess-set_sigma"><strong>set_sigma</strong></a>(self, sigma)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-set_z0"><strong>set_z0</strong></a>(self, z0)</dt></dl>
+
+<dl><dt><a name="LOBFactorProcess-simulate"><strong>simulate</strong></a>(self, time_discr, num_tpoints, out<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;a&nbsp;sample&nbsp;path&nbsp;as&nbsp;a&nbsp;numpy&nbsp;array&nbsp;computed&nbsp;by&nbsp;Euler&nbsp;method.<br>
+----------<br>
+args:<br>
+time_discr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;difference&nbsp;between&nbsp;to&nbsp;time&nbsp;points<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;future&nbsp;time&nbsp;points&nbsp;for&nbsp;simulation<br>
+out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional)&nbsp;array&nbsp;in&nbsp;which&nbsp;the&nbsp;simulation&nbsp;is&nbsp;stored<br>
+&nbsp;<br>
+output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;array&nbsp;of&nbsp;length&nbsp;num_tpoints+1&nbsp;with&nbsp;simulated&nbsp;path</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBProfile">class <strong>LOBProfile</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Describes&nbsp;a&nbsp;profile&nbsp;of&nbsp;the&nbsp;linear&nbsp;two&nbsp;factor&nbsp;order&nbsp;book&nbsp;model<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LOBProfile-__init__"><strong>__init__</strong></a>(self, bidask<font color="#909090">='ask'</font>, gamma<font color="#909090">=0.0</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;<a href="#LOBProfile">LOBProfile</a>&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-fit_profile_tv_argmax"><strong>fit_profile_tv_argmax</strong></a>(self, profile_data)</dt><dd><tt>Fit&nbsp;average&nbsp;order&nbsp;book&nbsp;profile&nbsp;to&nbsp;the&nbsp;model&nbsp;shape&nbsp;by&nbsp;fitting&nbsp;to&nbsp;the&nbsp;posistion&nbsp;of&nbsp;the&nbsp;maximum</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-fit_profile_tv_leastsq"><strong>fit_profile_tv_leastsq</strong></a>(self, profile_data)</dt><dd><tt>Fit&nbsp;average&nbsp;order&nbsp;book&nbsp;profile&nbsp;to&nbsp;the&nbsp;model&nbsp;shape&nbsp;by&nbsp;using&nbsp;least&nbsp;square&nbsp;optimization&nbsp;after&nbsp;fitting&nbsp;the&nbsp;volume</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-fit_profile_tv_max_exact"><strong>fit_profile_tv_max_exact</strong></a>(self, profile_data)</dt><dd><tt>Fit&nbsp;average&nbsp;order&nbsp;book&nbsp;profile&nbsp;to&nbsp;the&nbsp;model&nbsp;shape&nbsp;by&nbsp;fitting&nbsp;to&nbsp;the&nbsp;posistion&nbsp;of&nbsp;the&nbsp;maximum</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-fit_profile_tvrmax1"><strong>fit_profile_tvrmax1</strong></a>(self, profile_data)</dt><dd><tt>Fit&nbsp;average&nbsp;order&nbsp;book&nbsp;profile&nbsp;to&nbsp;the&nbsp;model&nbsp;shape&nbsp;by&nbsp;fitting&nbsp;R_{1,infty}.</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-get_profilemass"><strong>get_profilemass</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LOBProfile-is_ask"><strong>is_ask</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;self&nbsp;is&nbsp;an&nbsp;ask&nbsp;profile</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-is_bid"><strong>is_bid</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;self&nbsp;is&nbsp;a&nbsp;bid&nbsp;profile</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-settoask"><strong>settoask</strong></a>(self)</dt><dd><tt>Sets&nbsp;bidask&nbsp;flag&nbsp;to&nbsp;ask</tt></dd></dl>
+
+<dl><dt><a name="LOBProfile-settobid"><strong>settobid</strong></a>(self)</dt><dd><tt>Sets&nbsp;bidask&nbsp;flag&nbsp;to&nbsp;bid</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LOBProfileScaled">class <strong>LOBProfileScaled</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Describes&nbsp;a&nbsp;profile&nbsp;of&nbsp;the&nbsp;linear&nbsp;two&nbsp;factor&nbsp;order&nbsp;book&nbsp;model<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LOBProfileScaled-__init__"><strong>__init__</strong></a>(self, bidask<font color="#909090">='ask'</font>, gamma<font color="#909090">=0.0</font>, scaling<font color="#909090">=1.0</font>)</dt><dd><tt>Creates&nbsp;and&nbsp;<a href="#LOBProfile">LOBProfile</a>&nbsp;object</tt></dd></dl>
+
+<dl><dt><a name="LOBProfileScaled-fit_profile_leastsq_scaling"><strong>fit_profile_leastsq_scaling</strong></a>(self, profile_data)</dt><dd><tt>Fit&nbsp;average&nbsp;order&nbsp;book&nbsp;profile&nbsp;to&nbsp;the&nbsp;model&nbsp;shape&nbsp;by&nbsp;using&nbsp;least&nbsp;square&nbsp;optimization&nbsp;after&nbsp;fitting&nbsp;the&nbsp;volume</tt></dd></dl>
+
+<dl><dt><a name="LOBProfileScaled-fit_profile_leastsq_scaling_1"><strong>fit_profile_leastsq_scaling_1</strong></a>(self, profile_data)</dt><dd><tt>Fit&nbsp;average&nbsp;order&nbsp;book&nbsp;profile&nbsp;to&nbsp;the&nbsp;model&nbsp;shape&nbsp;by&nbsp;using&nbsp;least&nbsp;square&nbsp;optimization&nbsp;after&nbsp;fitting&nbsp;the&nbsp;volume</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="LinearDiffusion">class <strong>LinearDiffusion</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Class&nbsp;of&nbsp;stochastic&nbsp;processes&nbsp;of&nbsp;the&nbsp;form<br>
+&nbsp;&nbsp;&nbsp;&nbsp;d&nbsp;Z_t&nbsp;=&nbsp;nu(&nbsp;mu&nbsp;-&nbsp;Z_t)&nbsp;d&nbsp;t&nbsp;+&nbsp;sigma&nbsp;Z_t&nbsp;d&nbsp;W_t<br>
+for&nbsp;a&nbsp;real&nbsp;Brownian&nbsp;motion&nbsp;W&nbsp;and&nbsp;nu,&nbsp;mu,&nbsp;sigma&nbsp;in&nbsp;RR.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="LinearDiffusion-__init__"><strong>__init__</strong></a>(self, z0<font color="#909090">=1.0</font>, mu<font color="#909090">=1.0</font>, nu<font color="#909090">=0.0</font>, sigma<font color="#909090">=0.0</font>)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-get_mu"><strong>get_mu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-get_nu"><strong>get_nu</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-get_params"><strong>get_params</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;parameters&nbsp;of&nbsp;the&nbsp;dynamics:&nbsp;(mu,&nbsp;nu,&nbsp;sigma)</tt></dd></dl>
+
+<dl><dt><a name="LinearDiffusion-get_sigma"><strong>get_sigma</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-get_z0"><strong>get_z0</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-is_gbm"><strong>is_gbm</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;process&nbsp;is&nbsp;a&nbsp;geometric&nbsp;Brownian&nbsp;motion&nbsp;with&nbsp;drift</tt></dd></dl>
+
+<dl><dt><a name="LinearDiffusion-is_recgamma"><strong>is_recgamma</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;process&nbsp;is&nbsp;a&nbsp;reciprocal&nbsp;gamma&nbsp;diffusion</tt></dd></dl>
+
+<dl><dt><a name="LinearDiffusion-set_mu"><strong>set_mu</strong></a>(self, mu)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-set_nu"><strong>set_nu</strong></a>(self, nu)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-set_params"><strong>set_params</strong></a>(self, params)</dt><dd><tt>Set&nbsp;model&nbsp;parameter&nbsp;(mu,&nbsp;nu,&nbsp;sigma)&nbsp;to&nbsp;input</tt></dd></dl>
+
+<dl><dt><a name="LinearDiffusion-set_sigma"><strong>set_sigma</strong></a>(self, sigma)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-set_z0"><strong>set_z0</strong></a>(self, z0)</dt></dl>
+
+<dl><dt><a name="LinearDiffusion-simulate"><strong>simulate</strong></a>(self, time_discr, num_tpoints, out<font color="#909090">=None</font>)</dt><dd><tt>Returns&nbsp;a&nbsp;sample&nbsp;path&nbsp;as&nbsp;a&nbsp;numpy&nbsp;array&nbsp;computed&nbsp;by&nbsp;Euler&nbsp;method.<br>
+----------<br>
+args:<br>
+time_discr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;difference&nbsp;between&nbsp;to&nbsp;time&nbsp;points<br>
+num_tpoints&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;of&nbsp;future&nbsp;time&nbsp;points&nbsp;for&nbsp;simulation<br>
+out&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(optional)&nbsp;array&nbsp;in&nbsp;which&nbsp;the&nbsp;simulation&nbsp;is&nbsp;stored<br>
+&nbsp;<br>
+output:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;numpy&nbsp;array&nbsp;of&nbsp;length&nbsp;num_tpoints+1&nbsp;with&nbsp;simulated&nbsp;path</tt></dd></dl>
+
+</td></tr></table></td></tr></table>
+</body></html>

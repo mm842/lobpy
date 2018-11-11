@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module lobpy.models.plots</title>
+<meta charset="utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="lobpy.html"><font color="#ffffff">lobpy</font></a>.<a href="lobpy.models.html"><font color="#ffffff">models</font></a>.plots</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/plots.py">/home/math/Workspace/projects/02_market-microstructure/04_code/temp/lobpy/models/plots.py</a></font></td></tr></table>
+    <p><tt>Copyright&nbsp;(c)&nbsp;2018,&nbsp;University&nbsp;of&nbsp;Oxford,&nbsp;Rama&nbsp;Cont&nbsp;and&nbsp;ETH&nbsp;Zurich,&nbsp;Marvin&nbsp;S.&nbsp;Mueller<br>
+&nbsp;<br>
+plots.py&nbsp;<br>
+&nbsp;<br>
+functions&nbsp;to&nbsp;plot&nbsp;relevant&nbsp;quantities</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="lobpy.models.calibration.html">lobpy.models.calibration</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.html">matplotlib</a><br>
+</td><td width="25%" valign=top><a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-plot_av_profile"><strong>plot_av_profile</strong></a>(profile_bid, profile_ask, filename, ticker_str, date_str, time_start, time_end)</dt></dl>
+ <dl><dt><a name="-plot_avprofile_fits"><strong>plot_avprofile_fits</strong></a>(profile_bid, profile_ask, models, labels_leg<font color="#909090">=['data', 'LSQ', 'LSQF', 'ArgMax', r'$R_{\infty, 1}$']</font>, title_str<font color="#909090">='Fit of average profile'</font>, filename<font color="#909090">='av-profile'</font>)</dt><dd><tt>Plots&nbsp;the&nbsp;resuls&nbsp;from&nbsp;fitting&nbsp;average&nbsp;profiles.&nbsp;Supports&nbsp;up&nbsp;to&nbsp;4&nbsp;different&nbsp;methods&nbsp;used&nbsp;for&nbsp;calibration.<br>
+----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filename:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str&nbsp;for&nbsp;filename&nbsp;of&nbsp;the&nbsp;plot<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_stamps:&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;points&nbsp;of&nbsp;fits<br>
+&nbsp;&nbsp;&nbsp;&nbsp;models:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;models&nbsp;with&nbsp;calibrated&nbsp;parameters&nbsp;using&nbsp;possibly&nbsp;different&nbsp;methods<br>
+&nbsp;&nbsp;&nbsp;&nbsp;labels_leg=["LSQ",&nbsp;"LSQF",&nbsp;"ArgMax",&nbsp;"$R_{\infty,&nbsp;1}$"]:&nbsp;&nbsp;&nbsp;&nbsp;Labels&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;different&nbsp;methods&nbsp;used&nbsp;for&nbsp;fit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title_str&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;plotting</tt></dd></dl>
+ <dl><dt><a name="-plot_avprofile_gamma"><strong>plot_avprofile_gamma</strong></a>(filename, time_stamps, gammas_bid, gammas_ask, labels_leg<font color="#909090">=['LSQ', 'LSQF', 'ArgMax', r'$R_{\infty, 1}$']</font>, title_str<font color="#909090">='Fit of average profile'</font>)</dt><dd><tt>Plots&nbsp;the&nbsp;resuls&nbsp;from&nbsp;fitting&nbsp;average&nbsp;profiles.&nbsp;Supports&nbsp;up&nbsp;to&nbsp;4&nbsp;different&nbsp;methods&nbsp;used&nbsp;for&nbsp;calibration.<br>
+----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filename:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str&nbsp;for&nbsp;filename&nbsp;of&nbsp;the&nbsp;plot<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time_stamps:&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;points&nbsp;of&nbsp;fits<br>
+&nbsp;&nbsp;&nbsp;&nbsp;gammas_bid:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fitted&nbsp;bid&nbsp;values&nbsp;of&nbsp;gamma,&nbsp;multiple&nbsp;methods&nbsp;might&nbsp;have&nbsp;been&nbsp;used&nbsp;and&nbsp;stored&nbsp;as&nbsp;gammas_bid[methodindex,timeindex]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;gammas_ask:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fitted&nbsp;ask&nbsp;values&nbsp;of&nbsp;gamma,&nbsp;multiple&nbsp;methods&nbsp;might&nbsp;have&nbsp;been&nbsp;used&nbsp;and&nbsp;stored&nbsp;as&nbsp;gammas_bid[methodindex,timeindex]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;labels_leg=["LSQ",&nbsp;"LSQF",&nbsp;"ArgMax",&nbsp;"$R_{\infty,&nbsp;1}$"]:&nbsp;&nbsp;&nbsp;&nbsp;Labels&nbsp;corresponding&nbsp;to&nbsp;the&nbsp;different&nbsp;methods&nbsp;used&nbsp;for&nbsp;fit<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title_str&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;plotting</tt></dd></dl>
+ <dl><dt><a name="-plot_bidaskdata"><strong>plot_bidaskdata</strong></a>(time_grid, data_bid, data_ask, title_str<font color="#909090">=''</font>, filename<font color="#909090">=''</font>)</dt><dd><tt>Plot&nbsp;the&nbsp;given&nbsp;bid&nbsp;and&nbsp;ask&nbsp;data&nbsp;with&nbsp;a&nbsp;given&nbsp;title&nbsp;string&nbsp;and&nbsp;stores&nbsp;as&nbsp;filename.pdf&nbsp;and&nbsp;filename.png</tt></dd></dl>
+ <dl><dt><a name="-plot_calibration_history_volume"><strong>plot_calibration_history_volume</strong></a>(cal_history, filename<font color="#909090">='calhistoryplot'</font>, titlestr<font color="#909090">=''</font>, plot_corr<font color="#909090">=True</font>)</dt><dd><tt>Plots&nbsp;the&nbsp;history&nbsp;of&nbsp;order&nbsp;volume&nbsp;calibration<br>
+----------<br>
+args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cal_history:&nbsp;&nbsp;&nbsp;&nbsp;CalibrationHistory&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filename:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;for&nbsp;the&nbsp;plot<br>
+&nbsp;&nbsp;&nbsp;&nbsp;titlestr:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;for&nbsp;the&nbsp;plot<br>
+&nbsp;&nbsp;&nbsp;&nbsp;plot_corr:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;false,&nbsp;no&nbsp;plot&nbsp;for&nbsp;the&nbsp;correlation&nbsp;will&nbsp;be&nbsp;added</tt></dd></dl>
+</td></tr></table>
+</body></html>
