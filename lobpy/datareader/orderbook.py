@@ -1,7 +1,8 @@
 """
 Copyright (c) 2018, University of Oxford, Rama Cont and ETH Zurich, Marvin S. Mueller
 
-This module provides the class OBReader which defines functionality to read in limit order book data and return the relevant parts as numpy arrays. Note that no specific format of the data is required and thus, OBReader does not provide full functionability. This should be provided by a suitable subclass for each specific data format. (see lobster.py for a reader for LOBSTER files) 
+This module provides the (not on stand-alone working) class OBReader which defines a kind of interface for classes used to read in limit order book data and return the relevant parts as numpy arrays. Note that no specific format of the data is required and thus, OBReader does not provide full functionability. This should be provided by a suitable subclass for each specific data format. (see lobster.py for a reader for LOBSTERDATA files).
+
 """
 
 
