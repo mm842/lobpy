@@ -1,7 +1,10 @@
 # lobpy
 
 
-This package provides limit order book models introduced in Cont, Mueller (2018, in preparation), Stochastic PDE models of limit order book dynamics.
+This package provides tools for a tractable class of models for the limit order book dynamics. A detailed description of the general dynamics and the more specific models can be found in the manuscript: 
+
+[Cont, Mueller (2019): A stochastic partial differential equation model for limit order book dynamics](https://arxiv.org/abs/1904.03058 )
+
 
 ## Code Example
 
