@@ -1,7 +1,7 @@
 # lobpy
 
 
-This package provides tools for a tractable class of models for the limit order book dynamics. A detailed description of the general dynamics and the more specific models can be found in the manuscript: 
+This package provides tools for a tractable class of models for the limit order book dynamics. A detailed description of models its derivation and its financial and mathematical background is given in the manuscript: 
 
 [Cont, Mueller (2019): A stochastic partial differential equation model for limit order book dynamics](https://arxiv.org/abs/1904.03058 )
 
