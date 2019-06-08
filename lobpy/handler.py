@@ -179,7 +179,7 @@ def calibrate_mrevdynamics_lobster_rf(
 
 
 
-def calibrate_profile_lobster_full(
+def calibrate_profile_lobster(
         ticker_str,
         date_str,
         time_start_data,
