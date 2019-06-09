@@ -7,7 +7,7 @@ Copyright (c) 2018, University of Oxford, Rama Cont and ETH Zurich, Marvin S. Mu
 
 import sys
 import lobpy.handler as lobh
-import lobpy.tester as lobt
+#import lobpy.tester as lobt
 
 
 
@@ -180,13 +180,15 @@ elif vol_estimation:
         num_snapshots
     )        
 elif testing_std:
-    lobt._test_calibration()
+    print("testing has been disabled")
+    #lobt._test_calibration()
 elif testing:
-    time_discr = float(sys.argv[2])
-    timegrid_size = int(sys.argv[3])
-    ntimesteps_cal = int(sys.argv[4])
-    ntimesteps_nextcal = int(sys.argv[5])
-    lobt._test_calibration(time_discr, num_tpoints=timegrid_size, ntimesteps_cal=ntimesteps_cal, ntimesteps_nextcal=ntimesteps_nextcal)
+    print("testing has been disabled")
+    # time_discr = float(sys.argv[2])
+    # timegrid_size = int(sys.argv[3])
+    # ntimesteps_cal = int(sys.argv[4])
+    # ntimesteps_nextcal = int(sys.argv[5])
+    # lobt._test_calibration(time_discr, num_tpoints=timegrid_size, ntimesteps_cal=ntimesteps_cal, ntimesteps_nextcal=ntimesteps_nextcal)
 
 
 print("Done.")
