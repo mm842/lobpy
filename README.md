@@ -1,7 +1,7 @@
 # lobpy
 
 
-This package provides tools for a tractable class of models for the limit order book dynamics. A detailed description of the models, the derivation and the financial and mathematical background is given in the manuscript: 
+This python3 package provides tools for a tractable class of models for the limit order book dynamics. A detailed description of the models, the derivation and the financial and mathematical background is given in the manuscript: 
 
 [Cont, Mueller (2019): A stochastic partial differential equation model for limit order book dynamics](https://arxiv.org/abs/1904.03058 )
 
@@ -78,7 +78,7 @@ The key motivation is to improve understanding of the dynamics and price formati
 
 ## Installation
 
-Download the folder lobpy and place it where python can find it. 
+Download the folder lobpy and place it where python3 can find it. 
 
 ## API Reference
 
