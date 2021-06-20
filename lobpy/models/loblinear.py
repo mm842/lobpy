@@ -215,10 +215,10 @@ class LOBLinearTwoFactor(LOBLinear):
         (path_bid[0], path_ask[0]) = self.get_z0()
         for k in range(num_tpoints):
             path_bid[k + 1] = path_bid[k] + self.dynamics_bid.nu * (
-                        self.dynamics_bid.mu - path_bid[k]) * dt + self.dynamics_bid.sigma * \
+                    self.dynamics_bid.mu - path_bid[k]) * dt + self.dynamics_bid.sigma * \
                               path_bid[k] * dw1t[k]
             path_ask[k + 1] = path_ask[k] + self.dynamics_ask.nu * (
-                        self.dynamics_ask.mu - path_ask[k]) * dt + self.dynamics_ask.sigma * \
+                    self.dynamics_ask.mu - path_ask[k]) * dt + self.dynamics_ask.sigma * \
                               path_ask[k] * (self.rho * dw1t[k] + rho_conv * dw2t[k])
 
         if return_bmincr:

@@ -270,7 +270,7 @@ class LOBSTERReader(OBReader):
             else:  # executed only when not quitted by break, i.e. time_end >= time at end of file in this case we extrapolate
                 warnings.warn(
                     "Extrapolated order book data since time_end exceed time at end of the file by %f seconds." % (
-                                time_end - nexttime))
+                            time_end - nexttime))
                 currtime = nexttime
                 nexttime = time_end
                 for ctr, currbucket in enumerate(currprofile):
@@ -296,10 +296,10 @@ class LOBSTERReader(OBReader):
         outfilename = ".".join((outfilename, 'csv'))
         with open(outfilename, 'w') as outfile:
             wr = csv.writer(outfile)
-            wr.writerow(mean[1::2]) # LOBster format: bid data at odd * 2
-            wr.writerow(mean[0::2]) # LOBster format: ask data at even * 2
-            
-        print("Average order book saved as %s."%outfilename)
+            wr.writerow(mean[1::2])  # LOBster format: bid data at odd * 2
+            wr.writerow(mean[0::2])  # LOBster format: ask data at even * 2
+
+        print("Average order book saved as %s." % outfilename)
         return mean[1::2], mean[0::2]
 
     def load_orderbook(
@@ -371,10 +371,9 @@ class LOBSTERReader(OBReader):
 
         if (file_ended_line < num_observations):
             warnings.warn("End of file reached. Number of values constantly extrapolated: %i" % (
-                        num_observations - file_ended_line), RuntimeWarning)
+                    num_observations - file_ended_line), RuntimeWarning)
 
         return dt, time_stamps, volume_bid, volume_ask
-
 
     def _load_ordervolume(
             self,
@@ -443,7 +442,7 @@ class LOBSTERReader(OBReader):
 
         if (file_ended_line < num_observations):
             warnings.warn("End of file reached. Number of values constantly extrapolated: %i" % (
-                        num_observations - file_ended_line), RuntimeWarning)
+                    num_observations - file_ended_line), RuntimeWarning)
 
         return dt, time_stamps, volume_bid, volume_ask
 
@@ -524,7 +523,7 @@ class LOBSTERReader(OBReader):
 
         if (file_ended_line < num_observations):
             warnings.warn("End of file reached. Number of values constantly extrapolated: %i" % (
-                        num_observations - file_ended_line), RuntimeWarning)
+                    num_observations - file_ended_line), RuntimeWarning)
 
         return dt, time_stamps, volume_bid, volume_ask
 
@@ -639,7 +638,7 @@ class LOBSTERReader(OBReader):
 
         if (file_ended_line < num_observations - 1):
             warnings.warn("End of file reached. Number of values constantly extrapolated: %i" % (
-                        num_observations - file_ended_line), RuntimeWarning)
+                    num_observations - file_ended_line), RuntimeWarning)
             while ctr_obs < (num_observations - 1):
                 prices_bid[ctr_obs + 1] = prices_bid[ctr_obs]
                 prices_ask[ctr_obs + 1] = prices_ask[ctr_obs]

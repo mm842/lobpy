@@ -253,9 +253,10 @@ def calibrate_profile_lobster(
         print("Save model parameters to files")
 
         for model, gamma_bids, gamma_asks in zip(models, (
-        gamma_bids_LSQ, gamma_bids_LSQF, gamma_bids_ArgMax, gamma_bids_RMax1), (
-                                                 gamma_asks_LSQ, gamma_asks_LSQF, gamma_asks_ArgMax,
-                                                 gamma_asks_RMax1)):
+                gamma_bids_LSQ, gamma_bids_LSQF, gamma_bids_ArgMax, gamma_bids_RMax1), (
+                                                         gamma_asks_LSQ, gamma_asks_LSQF,
+                                                         gamma_asks_ArgMax,
+                                                         gamma_asks_RMax1)):
             model.savef()
             gb, ga = model.get_gamma()
             gamma_bids.append(gb)
@@ -336,7 +337,6 @@ def calibrate_profile_lobster_new(
     time_cal            time for averageing in ms
     """
 
-
     gamma_bids_LSQ = []
     gamma_bids_LSQF = []
     gamma_bids_ArgMax = []
@@ -389,9 +389,10 @@ def calibrate_profile_lobster_new(
         print("Save model parameters to files")
 
         for model, gamma_bids, gamma_asks in zip(models, (
-        gamma_bids_LSQ, gamma_bids_LSQF, gamma_bids_ArgMax, gamma_bids_RMax1), (
-                                                 gamma_asks_LSQ, gamma_asks_LSQF, gamma_asks_ArgMax,
-                                                 gamma_asks_RMax1)):
+                gamma_bids_LSQ, gamma_bids_LSQF, gamma_bids_ArgMax, gamma_bids_RMax1), (
+                                                         gamma_asks_LSQ, gamma_asks_LSQF,
+                                                         gamma_asks_ArgMax,
+                                                         gamma_asks_RMax1)):
             model.savef()
             gb, ga = model.get_gamma()
             gamma_bids.append(gb)
@@ -538,7 +539,7 @@ def extract_price_lobster(
 
     print('Extracting total volume process.')
     dt, time_stamps, prices_bid, prices_ask = lobreader.load_prices(ntimepoints_grid,
-                                                                 write_output=True)
+                                                                    write_output=True)
 
     print('Plotting data')
     title_str = "Order volume in first {0} buckets\n ticker: {1}, Date: {2}".format(num_levels_data,

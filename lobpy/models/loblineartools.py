@@ -160,7 +160,7 @@ class LOBProfile:
             else:
                 return (math.sqrt(math.pow(L * gamma, 2) + math.pow(math.pi, 2)) * math.exp(
                     - gamma * L * math.atan(math.pi / (L * gamma)) / math.pi) / (
-                                    1. + math.exp(- gamma * L / math.pi)) / L)
+                                1. + math.exp(- gamma * L / math.pi)) / L)
 
         r1max_res = lambda gamma: math.pow(np.max(profile_data) / tvol - r1max(gamma), 2)
         gamma = sopt.minimize_scalar(r1max_res, bounds=(0, .5 * L), method='bounded')

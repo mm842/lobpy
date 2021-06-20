@@ -122,8 +122,8 @@ class PriceModel(OrderVolumeMeanRev):
         out[0] = self.p0
         for k in range(num_tpoints):
             out[k + 1] = out[k] + dt / float(2) * (
-                        nu[0] * mu[0] / depth_bid[k] - nu[1] * mu[1] / depth_ask[k] - (
-                            nu[0] - nu[1])) + (sigma[0] - self.rho * sigma[1]) * dw1t[k] / float(
+                    nu[0] * mu[0] / depth_bid[k] - nu[1] * mu[1] / depth_ask[k] - (
+                    nu[0] - nu[1])) + (sigma[0] - self.rho * sigma[1]) * dw1t[k] / float(
                 2) - rho2 * sigma[1] * dw2t[k] / float(2)
 
         if ret_depths:
@@ -140,7 +140,7 @@ class PriceModel(OrderVolumeMeanRev):
         nu = self.get_nu()
         sqt1 = math.sqrt(t1)
         prob = norm.cdf(sqt1 / (float(2.) * vol) * (
-                    nu[0] * (mu[0] - d0b) / d0b - nu[1] * (mu[1] - d0a) / d0a) - threshold / (
-                                    vol * sqt1))
+                nu[0] * (mu[0] - d0b) / d0b - nu[1] * (mu[1] - d0a) / d0a) - threshold / (
+                                vol * sqt1))
 
         return prob
