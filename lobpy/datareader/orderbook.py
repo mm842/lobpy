@@ -5,17 +5,15 @@ This module provides the (not on stand-alone working) class OBReader which defin
 
 """
 
-
-
 ######
 # Imports
 ######
 import csv
-import warnings 
+import warnings
 
-import math
 import numpy as np
-#import ... as ...
+
+# import ... as ...
 
 ######
 # Global Constants
@@ -29,6 +27,8 @@ AV_ORDERBOOK_FILE_ID = "av-orderbook"
 TVOLPROC_FILE_ID = "ordervolume"
 DEPTH_FILE_ID = "marketdepth"
 PRICE_FILE_ID = "best_prices"
+
+
 ######
 # Begin Exceptions
 ######
@@ -36,6 +36,7 @@ PRICE_FILE_ID = "best_prices"
 class Error(Exception):
     """Base class for exceptions in this module."""
     pass
+
 
 class DataFileError(Error):
     """Exception raised for errors concerning the data file.
@@ -52,6 +53,7 @@ class DataFileError(Error):
     def __str__(self):
         return ': '.join((self.expression, self.message))
 
+
 class DataRequestError(Error):
     """Exception raised for errors concerning the data file.
 
@@ -60,22 +62,25 @@ class DataRequestError(Error):
         message -- explanation of the error
     """
 
-    def __init__(self,  message):
+    def __init__(self, message):
         self.message = message
+
 
 class FunctionCallError(Error):
     def __init__(self, expression, message):
         self.expression = expression
         self.message = message
+
     def __str__(self):
         return ': '.join((self.expression, self.message))
+
 
 ######
 # Begin Functions
 ######
 
 
-class OBReader():
+class OBReader:
     """
     The OBReader offers support to extract features from limit order book data.
     ---------- 
@@ -85,36 +90,30 @@ class OBReader():
         num_levels:    number of price levels to consider. If None, it is expected that this will be clear from data
     """
 
-
     def __init__(self):
         self.lobfilename = "lobfilename"
         self.data = dict()
         self.num_levels = None
-        
-    def set_obfilename(filename):
-        self.lobfilename = filename
-        return True
 
     def create_filestr(self, identifier_str, num_levels=None):
         """ Create a file string which allows unified file names """
         return "_".join(("OBReader", identifier_str, num_levels))
-    
+
     def get_data_from_file(self, filename=""):
         """ Loads the order book data from a csv file with format bidprofile, askprofile """
-        if filename=="":
-            filename=self.lobfilename
+        if filename == "":
+            filename = self.lobfilename
         try:
-            with open(filename+".csv", newline='') as file:
-                filedata = csv.reader(file,delimiter=',')
+            with open(filename + ".csv", newline='') as file:
+                filedata = csv.reader(file, delimiter=',')
                 bid_profile = next(filedata)
                 ask_profile = next(filedata)
         except FileNotFoundError:
-            warnings.warn("File not found %s, returning None, None"%filename)
+            warnings.warn("File not found %s, returning None, None" % filename)
             return None, None
-        
+
         return np.fromiter(bid_profile, np.float), np.fromiter(ask_profile, np.float)
-    
-    
+
     def add_data(self, key_str, data, overwrite=True):
         """
         Adds data to the data dict.
@@ -124,9 +123,11 @@ class OBReader():
             data:       data to be stored
             overwrite:  If False and data are stored already in key, then a warning will be raised and False will be returned
         """
-        
+
         if not overwrite and (key_str in self.data):
-            warnings.warn("LOBSTERReader has already data stored with key {} and overwriting disabled.".format(key_str),RuntimeWarning)
+            warnings.warn(
+                "LOBSTERReader has already data stored with key {} and overwriting disabled.".format(
+                    key_str), RuntimeWarning)
             return False
         self.data[key_str] = data
         return True
@@ -142,7 +143,7 @@ class OBReader():
         self.data.clear()
         return True
 
-    def average_profile_tt(self, num_levels_output="" , write_outputfile=False):
+    def average_profile_tt(self, num_levels_output="", write_outputfile=False):
         pass;
 
     def average_profile_from_file(self, num_levels_calc_str="", write_outputfile=False):
@@ -158,17 +159,17 @@ class OBReader():
         
         Note: Due to possibly large amount of data we iterate through the file instead of reading the whole file into an array.
         """
-        raise FunctionCallError("OBReader._load_ordervolume", "This function is constructed as an interface and not thought for use in runtime. Please make sure the OBReader object has implemented _load_overvolume before usage.")
+        raise FunctionCallError("OBReader._load_ordervolume",
+                                "This function is constructed as an interface and not thought for use in runtime. Please make sure the OBReader object has implemented _load_overvolume before usage.")
         dt = .1
         time_stamps = np.zeros(num_observations)
         volume_bid = np.zeros(num_observations)
         volume_ask = np.zeros(num_observations)
-        
+
         return dt, time_stamps, volume_bid, volume_ask
 
-
     def _load_ordervolume_levelx(
-            self,            
+            self,
             level_x,
             level
     ):
@@ -176,15 +177,14 @@ class OBReader():
 
         Note: Due to possibly large amount of data we iterate through the file instead of reading the whole file into an array. 
         '''
-        raise FunctionCallError("OBReader._load_ordervolume", "This function is constructed as an interface and not thought for use in runtime. Please make sure the OBReader object has implemented _load_overvolume before usage.")
+        raise FunctionCallError("OBReader._load_ordervolume",
+                                "This function is constructed as an interface and not thought for use in runtime. Please make sure the OBReader object has implemented _load_overvolume before usage.")
         dt = .1
         time_stamps = np.zeros(num_observations)
         volume_bid = np.zeros(num_observations)
         volume_ask = np.zeros(num_observations)
-        
+
         return dt, time_stamps, volume_bid, volume_ask
-
-
 
     def _load_ordervolume_full(
             self,
@@ -197,7 +197,7 @@ class OBReader():
         Note: Due to possibly large amount of data we iterate through the file instead of reading the whole file into an array. 
         '''
         pass;
-        
+
     def load_ordervolume_levelx(
             self,
             num_observations,
@@ -208,9 +208,11 @@ class OBReader():
         print("Start extraction of order volume")
 
         if level_x > self.num_levels:
-            raise DataRequestError("Level {} is not included in the data file.".format(str(level_x)))
+            raise DataRequestError(
+                "Level {} is not included in the data file.".format(str(level_x)))
 
-        dt, time_stamps, volume_bid, volume_ask = self._load_ordervolume_levelx(num_observations, level_x)
+        dt, time_stamps, volume_bid, volume_ask = self._load_ordervolume_levelx(num_observations,
+                                                                                level_x)
 
         self.add_data("time_discr_ov", dt)
 
@@ -222,8 +224,8 @@ class OBReader():
 
         if write_output:
             print("Writing output.")
-            outfilename =  self.create_filestr(TVOLPROC_FILE_ID , "level-"+str(level_x))
-            outfilename = ".".join((outfilename,'csv'))
+            outfilename = self.create_filestr(TVOLPROC_FILE_ID, "level-" + str(level_x))
+            outfilename = ".".join((outfilename, 'csv'))
             with open(outfilename, 'w') as outfile:
                 wr = csv.writer(outfile)
                 wr.writerow(['Time in sec', 'Volume Bid', 'Volume Ask'])
@@ -243,14 +245,18 @@ class OBReader():
         print("Start extraction of order volume")
 
         num_levels_calc = self.num_levels
-        if not(num_levels_calc_str == ""):
-            num_levels_calc = int(num_levels_calc_str)        
+        if not (num_levels_calc_str == ""):
+            num_levels_calc = int(num_levels_calc_str)
 
         if num_observations is None:
-            time_stamps, volume_bid, volume_ask = self._load_ordervolume_full(num_levels_calc, profile2vol_fct=np.sum, ret_np=False)
+            time_stamps, volume_bid, volume_ask = self._load_ordervolume_full(num_levels_calc,
+                                                                              profile2vol_fct=np.sum,
+                                                                              ret_np=False)
             dt = 0
         else:
-            dt, time_stamps, volume_bid, volume_ask = self._load_ordervolume(num_observations, num_levels_calc, profile2vol_fct=np.sum)
+            dt, time_stamps, volume_bid, volume_ask = self._load_ordervolume(num_observations,
+                                                                             num_levels_calc,
+                                                                             profile2vol_fct=np.sum)
             self.add_data("time_discr_ov", dt)
 
         self.add_data("time_stamps_ov", time_stamps)
@@ -261,8 +267,8 @@ class OBReader():
 
         if write_output:
             print("Writing output.")
-            outfilename =  self.create_filestr(TVOLPROC_FILE_ID , str(num_levels_calc))
-            outfilename = ".".join((outfilename,'csv'))
+            outfilename = self.create_filestr(TVOLPROC_FILE_ID, str(num_levels_calc))
+            outfilename = ".".join((outfilename, 'csv'))
             with open(outfilename, 'w') as outfile:
                 wr = csv.writer(outfile)
                 wr.writerow(['Time in sec', 'Volume Bid', 'Volume Ask'])
@@ -272,36 +278,40 @@ class OBReader():
 
         return dt, time_stamps, volume_bid, volume_ask
 
-    
     def load_volume_process(
             self,
             num_observations,
             num_levels_calc_str="",
             write_output=False):
         ''' Extracts the volume of orders in the first num_level buckets at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file.  '''
-        warnings.warn("Function load_volume_process will be removed soon. Please use load_ordervolume instead", FutureWarning)
+        warnings.warn(
+            "Function load_volume_process will be removed soon. Please use load_ordervolume instead",
+            FutureWarning)
         return self.load_ordervolume(num_observations, num_levels_calc_str, write_output)
-
 
     def load_marketdepth(
             self,
             num_observations,
-            num_levels_calc_str="",            
+            num_levels_calc_str="",
             write_output=False
     ):
         ''' Extracts the market depths at the top of the book by averaging the order volume in the first num_level buckets. The data are extracted on a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. '''
         num_levels_calc = self.num_levels
-        if not(num_levels_calc_str == ""):
+        if not (num_levels_calc_str == ""):
             num_levels_calc = int(num_levels_calc_str)
 
         # The function _load_ordervolume will load the data according to the specific format
-        if num_observations is None:            
-            time_stamps, volume_bid, volume_ask = self._load_ordervolume_full(num_levels_calc, profile2vol_fct=np.mean, ret_np=False)
+        if num_observations is None:
+            time_stamps, volume_bid, volume_ask = self._load_ordervolume_full(num_levels_calc,
+                                                                              profile2vol_fct=np.mean,
+                                                                              ret_np=False)
             dt = 0
-        else:           
-            dt, time_stamps, depth_bid, depth_ask = self._load_ordervolume(num_observations, num_levels_calc, profile2vol_fct=np.mean)
+        else:
+            dt, time_stamps, depth_bid, depth_ask = self._load_ordervolume(num_observations,
+                                                                           num_levels_calc,
+                                                                           profile2vol_fct=np.mean)
             self.add_data("time_discr_depth", dt)
-            
+
         self.add_data("time_stamps_depth", time_stamps)
         self.add_data("market_depth" + str(num_levels_calc) + "--bid", depth_bid)
         self.add_data("market_depth" + str(num_levels_calc) + "--ask", depth_ask)
@@ -310,8 +320,8 @@ class OBReader():
 
         if write_output:
             print("Writing output.")
-            outfilename =  self.create_filestr(DEPTH_FILE_ID , str(num_levels_calc))
-            outfilename = ".".join((outfilename,'csv'))
+            outfilename = self.create_filestr(DEPTH_FILE_ID, str(num_levels_calc))
+            outfilename = ".".join((outfilename, 'csv'))
             with open(outfilename, 'w') as outfile:
                 wr = csv.writer(outfile)
                 wr.writerow(['Time in sec', 'Depth Bid', 'Depth Ask'])
@@ -324,7 +334,7 @@ class OBReader():
     def _load_prices(self, num_observations):
         ''' private method to implement how the price data are loaded from the files. WARNING: Not implemented in OBReader!'''
         pass;
-    
+
     def load_prices(
             self,
             num_observations,
@@ -333,7 +343,7 @@ class OBReader():
         ''' Extracts the price on bid and ask side as well as the mid price at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. 
         '''
         dt, time_stamps, prices_bid, prices_ask = self._load_prices(num_observations)
-        
+
         self.add_data("time_stamps_prices", time_stamps)
         self.add_data("prices" + "--bid", prices_bid)
         self.add_data("prices" + "--ask", prices_ask)
@@ -342,8 +352,8 @@ class OBReader():
 
         if write_output:
             print("Writing output.")
-            outfilename =  self.create_filestr(PRICE_FILE_ID)
-            outfilename = ".".join((outfilename,'csv'))
+            outfilename = self.create_filestr(PRICE_FILE_ID)
+            outfilename = ".".join((outfilename, 'csv'))
             with open(outfilename, 'w') as outfile:
                 wr = csv.writer(outfile)
                 wr.writerow(['Time in sec', 'Price Mid', 'Price Bid', 'Price Ask'])
@@ -353,7 +363,6 @@ class OBReader():
                                  prices_ask))
         return dt, time_stamps, prices_bid, prices_ask
 
-
     def load_profile_snapshot(
             self,
             time_stamp,
@@ -362,24 +371,25 @@ class OBReader():
         ''' Returns a two numpy arrays with snapshots of the bid- and ask-side of the order book at a given time stamp
         Output:
         bid_prices, bid_volume, ask_prices, ask_volume
-        '''             
+        '''
         return np.empty(1), np.empty(1), np.empty(1), np.empty(1)
-    
+
+
 # END OBReader
-
-
 
 
 def get_data_from_file(filename):
     ''' Loads the order book data from a csv file with format bidprofile; askprofile '''
-    warnings.warn("The method get_data_from_file is supposed to be removed in future versions. Use the OBReader function with the same name instead.", FutureWarning)
+    warnings.warn(
+        "The method get_data_from_file is supposed to be removed in future versions. Use the OBReader function with the same name instead.",
+        FutureWarning)
     try:
-        with open(filename+".csv", newline='') as file:
-            filedata = csv.reader(file,delimiter=',')
+        with open(filename + ".csv", newline='') as file:
+            filedata = csv.reader(file, delimiter=',')
             bid_profile = next(filedata)
             ask_profile = next(filedata)
     except FileNotFoundError:
-        print("File not found %s"%filename)
+        print("File not found %s" % filename)
         return None, None
-    
+
     return np.fromiter(bid_profile, np.float), np.fromiter(ask_profile, np.float)

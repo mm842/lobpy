@@ -4,11 +4,11 @@ Copyright (c) 2018, University of Oxford, Rama Cont and ETH Zurich, Marvin S. Mu
 
 """
 
-
 import sys
-import lobpy.handler as lobh
-#import lobpy.tester as lobt
 
+import lobpy.handler as lobh
+
+# import lobpy.tester as lobt
 
 
 calibrate_dynamics = False
@@ -18,25 +18,39 @@ testing = False
 testing_std = False
 data = False
 
-print("Note: This functionality so far only supports LOBSTER files. For process of non-lobster data please use the individual package modules.")
+print(
+    "Note: This functionality so far only supports LOBSTER files. For process of non-lobster data "
+    "please use the individual package modules.")
 
 if sys.argv[1] == "-h":
-    sys.exit("lobpy option args\n \n ------------\n Options: -cd ..... Calibration of dynamics\n -cp ..... Fit of average profile \n -data ..... Extract volume or price process from data \n \n Calibration of dynamics:\n lobpy -cd ticker_str date_str time_start_data time_end_data time_start_calc time_end_calc num_levels_data num_levels_calc timegrid_size timesteps_recal [calibration_to_average_flag(0/1)]\n ------------\n Fit of average profile:\n lobpy -cp ticker_str date_str time_start_data time_end_data time_start_calc time_end_calc num_levels_data num_levels_calc num_intervals\n Extract volume: lobpy -data volume ticker_str date_str time_start_data time_end_data time_start_calc time_end_calc num_levels_data num_levels_calc timegid_size(int or 'full')\n Extract price process: Extract volume: lobpy -data volume ticker_str date_str time_start_data time_end_data time_start_calc time_end_calc num_levels_data timegid_size(int or 'full')\n ------------\n Test:\n lobpy -t")
+    sys.exit(
+        "lobpy option args\n \n ------------\n Options: -cd ..... Calibration of dynamics\n -cp "
+        "..... Fit of average profile \n -data ..... Extract volume or price process from data \n "
+        "\n Calibration of dynamics:\n lobpy -cd ticker_str date_str time_start_data "
+        "time_end_data time_start_calc time_end_calc num_levels_data num_levels_calc "
+        "timegrid_size timesteps_recal [calibration_to_average_flag(0/1)]\n ------------\n Fit of "
+        "average profile:\n lobpy -cp ticker_str date_str time_start_data time_end_data "
+        "time_start_calc time_end_calc num_levels_data num_levels_calc num_intervals\n Extract "
+        "volume: lobpy -data volume ticker_str date_str time_start_data time_end_data "
+        "time_start_calc time_end_calc num_levels_data num_levels_calc timegid_size(int or "
+        "'full')\n Extract price process: Extract volume: lobpy -data volume ticker_str date_str "
+        "time_start_data time_end_data time_start_calc time_end_calc num_levels_data "
+        "timegid_size(int or 'full')\n ------------\n Test:\n lobpy -t")
 elif (sys.argv[1] == "-cp") or (sys.argv[1] == "--calibrate_profile"):
     calibrate_profile = True
 elif (sys.argv[1] == "-cd") or (sys.argv[1] == "--calibrate_dynamics"):
     calibrate_dynamics = True
 elif sys.argv[1] == "-vol":
     vol_estimation = True
-elif sys.argv[1] == "-data":    
-    data = True    
+elif sys.argv[1] == "-data":
+    data = True
 elif sys.argv[1] == "-tt":
     testing = True
 elif sys.argv[1] == "-t":
     testing_std = True
 else:
     sys.exit("Choose valid option for running calibration or help: lobpy [-cp/-cd/-data/-vol/-h]")
-        
+
 if calibrate_profile:
     ticker_str = sys.argv[2]
     date_str = sys.argv[3]
@@ -77,7 +91,7 @@ elif calibrate_dynamics:
             cal_to_average = True
     except IndexError:
         pass;
-    
+
     lobh.calibrate_mrevdynamics_lobster_rf(
         ticker_str,
         date_str,
@@ -145,7 +159,7 @@ elif data:
             time_end_calc,
             num_levels_data,
             timegrid_size
-        )           
+        )
     else:
         print("Unknown option selected. Valid choices are: -data volume and -data price.")
 elif vol_estimation:
@@ -164,7 +178,7 @@ elif vol_estimation:
     try:
         num_snapshots = int(sys.argv[13])
     except IndexError:
-        pass;    
+        pass;
     lobh.vol_estimation(
         ticker_str,
         date_str,
@@ -178,10 +192,10 @@ elif vol_estimation:
         ntimesteps_cal,
         ntimesteps_nextcal,
         num_snapshots
-    )        
+    )
 elif testing_std:
     print("testing has been disabled")
-    #lobt._test_calibration()
+    # lobt._test_calibration()
 elif testing:
     print("testing has been disabled")
     # time_discr = float(sys.argv[2])
@@ -189,6 +203,5 @@ elif testing:
     # ntimesteps_cal = int(sys.argv[4])
     # ntimesteps_nextcal = int(sys.argv[5])
     # lobt._test_calibration(time_discr, num_tpoints=timegrid_size, ntimesteps_cal=ntimesteps_cal, ntimesteps_nextcal=ntimesteps_nextcal)
-
 
 print("Done.")

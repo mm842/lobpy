@@ -14,21 +14,18 @@ Copyright (c) 2018, University of Oxford, Rama Cont and ETH Zurich, Marvin S. Mu
 
 """
 
-
 ######
 # Imports
 ######
-import csv
 import json
 import math
 import warnings
 
 import numpy as np
-import scipy.optimize as sopt
 
+from lobpy.models.loblineartools import LOBFactorProcess
 from lobpy.models.loblineartools import LOBProfile
 from lobpy.models.loblineartools import LOBProfileScaled
-from lobpy.models.loblineartools import LOBFactorProcess
 
 
 ######
@@ -44,8 +41,9 @@ class LOBLinear:
     So far, this class is not implemented but allows to implement subclasses.
     """
     pass
-#
 
+
+#
 
 
 ######
@@ -87,20 +85,19 @@ class LOBLinearTwoFactor(LOBLinear):
         dynamics_bid:   bid dynamics, LOBFactorProcess object
         dynamics_ask:   ask dynamics, LOBFactorProcess object
         rho:            correlation between bid and ask side
-    """    
-    
+    """
+
     #
     def __init__(self, modelid="LinearModel"):
         """ parameter format: [bidparameter, askparameter] """
 
-        self.modelid = modelid # Model ID to identify the model e.g. when printing plots or saving data
-        
-        self.profile_bid = LOBProfile('bid')
-        self.profile_ask = LOBProfile('ask')        
-        self.dynamics_bid = LOBFactorProcess('bid')
-        self.dynamics_ask = LOBFactorProcess('ask')     
-        self.rho = 0.           # correlation between bid and ask side
+        self.modelid = modelid  # Model ID to identify the model e.g. when printing plots or saving data
 
+        self.profile_bid = LOBProfile('bid')
+        self.profile_ask = LOBProfile('ask')
+        self.dynamics_bid = LOBFactorProcess('bid')
+        self.dynamics_ask = LOBFactorProcess('ask')
+        self.rho = 0.  # correlation between bid and ask side
 
     #
     ######
@@ -115,7 +112,6 @@ class LOBLinearTwoFactor(LOBLinear):
         self.profile_bid.gamma = gammas[0]
         self.profile_ask.gamma = gammas[1]
         return
-
 
     def set_z0(self, z0s):
         """ Set bid and ask initial values for z0 """
@@ -142,7 +138,6 @@ class LOBLinearTwoFactor(LOBLinear):
         self.rho = rho
         return
 
-
     def set_modelpar_dict(self, pardict):
         """ sets model parameter to the parameter given in dict format 
         Touples are formatted as (bid_value, ask_value)
@@ -151,21 +146,20 @@ class LOBLinearTwoFactor(LOBLinear):
         self.set_modelid(pardict['modelid'])
         self.profile_bid.pmax, self.profile_ask.pmax = pardict['pmax']
         self.set_gamma(pardict['gamma'])
-        self.set_z0(pardict['z0']) 
+        self.set_z0(pardict['z0'])
         self.set_nu(pardict['nu'])
         self.set_mu(pardict['mu'])
         self.set_sigma(pardict['sigma'])
         self.set_rho(pardict['rho'])
 
-        return 
-    
+        return
+
     def get_modelid(self):
         return self.modelid
 
     def get_gamma(self):
         return self.profile_bid.gamma, self.profile_ask.gamma
 
-    
     def get_z0(self):
         """ Returns bid and ask values for z0 """
         return self.dynamics_bid.z0, self.dynamics_ask.z0
@@ -197,7 +191,6 @@ class LOBLinearTwoFactor(LOBLinear):
         pardict['rho'] = self.get_rho()
         return pardict
 
-
     def simulate_dynamics(self, dt, num_tpoints, return_bmincr=False):
         """ Simulate a trijectory of the depth for bid and ask side using Euler scheme. 
         ----------
@@ -212,23 +205,27 @@ class LOBLinearTwoFactor(LOBLinear):
         path_bid, path_ask, dw1t, dw2t
         """
 
-        path_bid = np.empty(num_tpoints+1)
-        path_ask = np.empty(num_tpoints+1)
+        path_bid = np.empty(num_tpoints + 1)
+        path_ask = np.empty(num_tpoints + 1)
         dt = float(dt)
         sqdt = math.sqrt(dt)
         dw1t = sqdt * np.random.normal(size=num_tpoints)
         dw2t = sqdt * np.random.normal(size=num_tpoints)
-        rho_conv = math.sqrt(1 - math.pow(self.rho,2))
+        rho_conv = math.sqrt(1 - math.pow(self.rho, 2))
         (path_bid[0], path_ask[0]) = self.get_z0()
         for k in range(num_tpoints):
-            path_bid[k+1] = path_bid[k] + self.dynamics_bid.nu * (self.dynamics_bid.mu - path_bid[k]) * dt + self.dynamics_bid.sigma * path_bid[k] * dw1t[k]
-            path_ask[k+1] = path_ask[k] + self.dynamics_ask.nu * (self.dynamics_ask.mu - path_ask[k]) * dt + self.dynamics_ask.sigma * path_ask[k] * (self.rho * dw1t[k] + rho_conv * dw2t[k])
+            path_bid[k + 1] = path_bid[k] + self.dynamics_bid.nu * (
+                        self.dynamics_bid.mu - path_bid[k]) * dt + self.dynamics_bid.sigma * \
+                              path_bid[k] * dw1t[k]
+            path_ask[k + 1] = path_ask[k] + self.dynamics_ask.nu * (
+                        self.dynamics_ask.mu - path_ask[k]) * dt + self.dynamics_ask.sigma * \
+                              path_ask[k] * (self.rho * dw1t[k] + rho_conv * dw2t[k])
 
         if return_bmincr:
             return path_bid, path_ask, dw1t, dw2t
 
         return path_bid, path_ask
-    
+
     def init_leastsq(self, profile_data_bid, profile_data_ask):
         """ Initialize model by fitting to data using least square fit """
 
@@ -238,8 +235,6 @@ class LOBLinearTwoFactor(LOBLinear):
         self.set_z0((z0_bid, z0_ask))
         return True
 
-    
-    
     def init_tv_leastsq(self, profile_data_bid, profile_data_ask):
         """ Initialize model by fitting to data as follows:
         1) initial volume is kept fixed from the data
@@ -247,7 +242,8 @@ class LOBLinearTwoFactor(LOBLinear):
         """
         gamma_bid = self.profile_bid.fit_profile_tv_leastsq(profile_data_bid)
         gamma_ask = self.profile_ask.fit_profile_tv_leastsq(profile_data_ask)
-        self.set_z0((np.sum(profile_data_bid) / self.profile_bid.get_profilemass(), np.sum(profile_data_ask)/ self.profile_ask.get_profilemass()))
+        self.set_z0((np.sum(profile_data_bid) / self.profile_bid.get_profilemass(),
+                     np.sum(profile_data_ask) / self.profile_ask.get_profilemass()))
         return True
 
     def init_tv_argmax(self, profile_data_bid, profile_data_ask):
@@ -257,7 +253,8 @@ class LOBLinearTwoFactor(LOBLinear):
         """
         gamma_bid = self.profile_bid.fit_profile_tv_argmax(profile_data_bid)
         gamma_ask = self.profile_ask.fit_profile_tv_argmax(profile_data_ask)
-        self.set_z0((np.sum(profile_data_bid) / self.profile_bid.get_profilemass(), np.sum(profile_data_ask)/ self.profile_ask.get_profilemass()))
+        self.set_z0((np.sum(profile_data_bid) / self.profile_bid.get_profilemass(),
+                     np.sum(profile_data_ask) / self.profile_ask.get_profilemass()))
         return True
 
     def init_tv_rmax1(self, profile_data_bid, profile_data_ask):
@@ -267,48 +264,46 @@ class LOBLinearTwoFactor(LOBLinear):
         """
         gamma_bid = self.profile_bid.fit_profile_tvrmax1(profile_data_bid)
         gamma_ask = self.profile_ask.fit_profile_tvrmax1(profile_data_ask)
-        self.set_z0((np.sum(profile_data_bid) / self.profile_bid.get_profilemass(), np.sum(profile_data_ask)/ self.profile_ask.get_profilemass()))
+        self.set_z0((np.sum(profile_data_bid) / self.profile_bid.get_profilemass(),
+                     np.sum(profile_data_ask) / self.profile_ask.get_profilemass()))
         return True
 
-    
     def get_profilefct_bid(self):
         """ Returns a function with the calibrated profile of the _bid side as a function of relative price x """
         z0 = self.dynamics_bid.z0
-        c2 = 1. # self.scalingconst[0]
+        c2 = 1.  # self.scalingconst[0]
         L = self.profile_bid.pmax
         gamma = self.profile_bid.gamma
-        return (lambda x :   c2 * z0 * np.sin(np.pi / L * c2 * x) * np.exp(-gamma * c2 * np.abs(x)))
+        return (lambda x: c2 * z0 * np.sin(np.pi / L * c2 * x) * np.exp(-gamma * c2 * np.abs(x)))
 
     def get_profilefct_ask(self):
-        """ Returns a function with the calibrated profile of the _ask side as a function of relative price x """        
+        """ Returns a function with the calibrated profile of the _ask side as a function of relative price x """
         z0 = self.dynamics_ask.z0
-        c2 = 1. #self.scalingconst[1]
+        c2 = 1.  # self.scalingconst[1]
         L = self.profile_ask.pmax
         gamma = self.profile_ask.gamma
-        return (lambda x :   c2 * z0 * np.sin(np.pi / L * c2 * x) * np.exp(-gamma * c2 * np.abs(x)))
+        return (lambda x: c2 * z0 * np.sin(np.pi / L * c2 * x) * np.exp(-gamma * c2 * np.abs(x)))
 
     def get_profilefct(self):
         """ Returns the profile as a function of relative price x """
         profileFct_bid = self.get_profile_bid
         profileFct_ask = self.get_profile_ask
-        return (lambda x: ((float(x<0))*profileFct_bid(x) + (float(x>0))*profileFct_ask(x)))
+        return (lambda x: ((float(x < 0)) * profileFct_bid(x) + (float(x > 0)) * profileFct_ask(x)))
 
-    
     def __str__(self):
         return str(self.get_modelpar_dict())
-
-
 
     def savef(self):
         """ Saves model in a file with name modelid.lobm using json """
         filename = ".".join((self.get_modelid(), "lobm"))
         with open(filename, "w") as outfile:
-            try: json.dump(self.get_modelpar_dict(), outfile)
+            try:
+                json.dump(self.get_modelpar_dict(), outfile)
             except TypeError:
                 print("Unable to serialize parameter.")
                 return False
         return True
-    
+
     def loadf(self, filename):
         """ Creates and loads a model from a file in json format with name filename.lobm """
         filenamelobm = ".".join((filename, "lobm"))
@@ -316,7 +311,6 @@ class LOBLinearTwoFactor(LOBLinear):
             modelpar = json.load(infile)
             self.set_modelpar_dict(modelpar)
         return True
-    
 
     ######
 
@@ -324,24 +318,23 @@ class LOBLinearTwoFactor(LOBLinear):
     # End Functions
     ######
 
+
 # End LOBLinearTwoFactor
 
 
 class LOBLinearTwoFactorS(LOBLinearTwoFactor):
     ''' LOBLinearTwoFactor which supports rescaling of tick level scale by x ** alpha for some alpha > 0.'''
 
-
     def __init__(self, modelid="LinearModel"):
         """ parameter format: [bidparameter, askparameter] """
 
-        self.modelid = modelid # Model ID to identify the model e.g. when printing plots or saving data
-        
-        self.profile_bid = LOBProfileScaled('bid')
-        self.profile_ask = LOBProfileScaled('ask')        
-        self.dynamics_bid = LOBFactorProcess('bid')
-        self.dynamics_ask = LOBFactorProcess('ask')     
-        self.rho = 0.           # correlation between bid and ask side
+        self.modelid = modelid  # Model ID to identify the model e.g. when printing plots or saving data
 
+        self.profile_bid = LOBProfileScaled('bid')
+        self.profile_ask = LOBProfileScaled('ask')
+        self.dynamics_bid = LOBFactorProcess('bid')
+        self.dynamics_ask = LOBFactorProcess('ask')
+        self.rho = 0.  # correlation between bid and ask side
 
     def init_leastsq(self, profile_data_bid, profile_data_ask):
         """ Initialize model by fitting to data using least square fit """
@@ -351,7 +344,7 @@ class LOBLinearTwoFactorS(LOBLinearTwoFactor):
         self.set_gamma((gamma_bid, gamma_ask))
         self.set_z0((z0_bid, z0_ask))
         self.set_scaling((alph_bid, alph_ask))
-        
+
         return True
 
     def set_scaling(self, alphas):
@@ -359,12 +352,10 @@ class LOBLinearTwoFactorS(LOBLinearTwoFactor):
         '''
         self.profile_bid.powerscaling = alphas[0]
         self.profile_ask.powerscaling = alphas[1]
-        return    
+        return
 
-    
     def get_scaling(self):
         return self.profile_bid.powerscaling, self.profile_ask.powerscaling
-    
 
     def set_modelpar_dict(self, pardict):
         """ sets model parameter to the parameter given in dict format 
@@ -373,7 +364,7 @@ class LOBLinearTwoFactorS(LOBLinearTwoFactor):
         super().set_modelpar_dict(pardict)
         self.set_scaling(pardict['scaling'])
 
-        return 
+        return
 
     def get_modelpar_dict(self):
         """ returns the model parameters in dict format. 
@@ -382,30 +373,28 @@ class LOBLinearTwoFactorS(LOBLinearTwoFactor):
         pardict = super().get_modelpar_dict()
         pardict['scaling'] = self.get_scaling()
         return pardict
-    
 
     def get_profilefct_bid(self):
         """ Returns a function with the calibrated profile of the _bid side as a function of relative price x """
         z0 = self.dynamics_bid.z0
-        c2 = 1. # self.scalingconst[0]
+        c2 = 1.  # self.scalingconst[0]
         L = self.profile_bid.pmax
         gamma = self.profile_bid.gamma
         alph = self.profile_ask.powerscaling
-        return (lambda x :   c2 * z0 * np.sin(np.pi / L * c2 * np.power(x,alph)) * np.exp(-gamma * c2 * np.power(np.abs(x),alph)))
+        return (lambda x: c2 * z0 * np.sin(np.pi / L * c2 * np.power(x, alph)) * np.exp(
+            -gamma * c2 * np.power(np.abs(x), alph)))
 
     def get_profilefct_ask(self):
-        """ Returns a function with the calibrated profile of the _ask side as a function of relative price x """        
+        """ Returns a function with the calibrated profile of the _ask side as a function of relative price x """
         z0 = self.dynamics_ask.z0
-        c2 = 1. #self.scalingconst[1]
+        c2 = 1.  # self.scalingconst[1]
         L = self.profile_ask.pmax
         gamma = self.profile_ask.gamma
-        alph = self.profile_ask.powerscaling        
-        return (lambda x :   c2 * z0 * np.sin(np.pi / L * c2 * np.power(x,alph)) * np.exp(-gamma * c2 * np.power(np.abs(x),alph)))
+        alph = self.profile_ask.powerscaling
+        return (lambda x: c2 * z0 * np.sin(np.pi / L * c2 * np.power(x, alph)) * np.exp(
+            -gamma * c2 * np.power(np.abs(x), alph)))
 
 
-
-    
-    
 class OrderVolumeMeanRev(LOBLinearTwoFactor):
     """ Model for the volume of orders in the first levels of the order book 
 
@@ -421,22 +410,21 @@ class OrderVolumeMeanRev(LOBLinearTwoFactor):
         profile_ask    
 
     """
-    
-    
-    def __init__(self, modelid="OrderVolumeMeanRev", num_levels=1):       
+
+    def __init__(self, modelid="OrderVolumeMeanRev", num_levels=1):
         self.num_levels = num_levels
-        self.modelid = "_".join((modelid, str(num_levels))) # Model ID to identify the model e.g. when printing plots or saving data
-                                
-        self.profile_bid = None # Pure price model does not implement profiles
+        self.modelid = "_".join((modelid,
+                                 str(num_levels)))  # Model ID to identify the model e.g. when printing plots or saving data
+
+        self.profile_bid = None  # Pure price model does not implement profiles
         self.profile_ask = None
-        
+
         self.dynamics_bid = LOBFactorProcess('bid')
-        self.dynamics_ask = LOBFactorProcess('ask')        
-        #self.c_data = [1.,1.]  # Used for linear rescaling to fit to the data
+        self.dynamics_ask = LOBFactorProcess('ask')
+        # self.c_data = [1.,1.]  # Used for linear rescaling to fit to the data
 
-        self.rho = 0.           # correlation between bid and ask side
+        self.rho = 0.  # correlation between bid and ask side
 
-    
     def get_gamma(self):
         warnings.warn("Pure price model does not implement order book profiles.")
         return None
@@ -452,27 +440,24 @@ class OrderVolumeMeanRev(LOBLinearTwoFactor):
         pardict['mu'] = self.get_mu()
         pardict['sigma'] = self.get_sigma()
         pardict['rho'] = self.get_rho()
-        return pardict    
+        return pardict
 
-
-    
     def set_modelpar_dict(self, pardict):
         """ sets model parameter to the parameter given in dict format 
         Touples are formatted as (bid_value, ask_value)
         """
         self.set_modelid(pardict['modelid'])
-        self.set_z0(pardict['z0']) 
+        self.set_z0(pardict['z0'])
         self.set_nu(pardict['nu'])
         self.set_mu(pardict['mu'])
         self.set_sigma(pardict['sigma'])
         self.set_rho(pardict['rho'])
         return
 
-    
     ######################
     # NOT CONSIDERED FOR IMPLEMENTATION
     ######################
-    
+
     def init_leastsq(self, profile_data_bid, profile_data_ask):
         """ Not implemented """
         warnings.warn("Function init_leastsq not implemented for subclass OrderVolumeMeanRev")
@@ -492,7 +477,7 @@ class OrderVolumeMeanRev(LOBLinearTwoFactor):
         """ Not implemented """
         warnings.warn("Function init_tv_rmax1 not implemented for subclass OrderVolumeMeanRev")
         return None
-    
+
     def get_profilefct_bid(self):
         """ Not implemented """
         warnings.warn("Function get_profilefct_bid not implemented for subclass OrderVolumeMeanRev")
@@ -508,9 +493,7 @@ class OrderVolumeMeanRev(LOBLinearTwoFactor):
         warnings.warn("Function get_profilefct not implemented for subclass OrderVolumeMeanRev")
         return None
 
-    
-    
-    
+
 class MarketMeanRev(LOBLinearTwoFactor):
     """ 
     TODO
@@ -520,17 +503,8 @@ class MarketMeanRev(LOBLinearTwoFactor):
     def __init__(self):
         """ parameter format: [bidparameter, askparameter] """
         super().__init__()
-        self.set_modelid("MarketModelMeanRev") # Model ID to identify the model e.g. when printing plots or saving data
-        
+        self.set_modelid(
+            "MarketModelMeanRev")  # Model ID to identify the model e.g. when printing plots or saving data
+
         self.prop = 1.  # Sensitivity constant on the order book dynamics
-        self.pmid0 = 0.  # Initial price level 
-
-
-
-
-
-    
-
-
-        
-    
+        self.pmid0 = 0.  # Initial price level
