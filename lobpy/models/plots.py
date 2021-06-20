@@ -9,7 +9,7 @@ functions to plot relevant quantities
 import matplotlib
 
 matplotlib.rcParams['text.usetex'] = True
-matplotlib.rcParams['text.latex.unicode'] = True
+#matplotlib.rcParams['text.latex.unicode'] = True
 import matplotlib.pyplot as plt
 import numpy as np
 
