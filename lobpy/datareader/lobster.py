@@ -296,11 +296,85 @@ class LOBSTERReader(OBReader):
         outfilename = ".".join((outfilename, 'csv'))
         with open(outfilename, 'w') as outfile:
             wr = csv.writer(outfile)
-            wr.writerow(mean[1::2])  # LOBster format: bid data at odd * 2
-            wr.writerow(mean[0::2])  # LOBster format: ask data at even * 2
-
-        print("Average order book saved as %s." % outfilename)
+            wr.writerow(mean[1::2]) # LOBster format: bid data at odd * 2
+            wr.writerow(mean[0::2]) # LOBster format: ask data at even * 2
+            
+        print("Average order book saved as %s."%outfilename)
         return mean[1::2], mean[0::2]
+
+    def load_orderbook(
+            self,
+            num_observations,
+            num_levels_calc
+    ):
+        ''' Extracts the volume of orders in the first num_level buckets at a uniform time grid of num_observations observations from the interval [time_start_calc, time_end_calc]. The volume process is extrapolated constantly on the last level in the file, for the case that time_end_calc is larger than the last time stamp in the file. profile2vol_fct allows to specify how the volume should be summarized from the profile. Typical choices are np.sum or np.mean.
+
+        Note: Due to possibly large amount of data we iterate through the file instead of reading the whole file into an array.
+        '''
+
+        time_start_calc = float(self.time_start_calc) / 1000.
+        time_end_calc = float(self.time_end_calc) / 1000.
+        file_ended_line = int(num_observations)
+        ctr_time = 0
+        ctr_line = 0
+        ctr_obs = 0  # counter for the outer of the
+        time_stamps, dt = np.linspace(time_start_calc, time_end_calc, num_observations,
+                                      retstep=True)
+        volume_bid = np.zeros((num_observations, num_levels_calc))
+        volume_ask = np.zeros((num_observations, num_levels_calc))
+
+        with open((self.lobfilename + '.csv')) as orderbookfile, open(
+                self.msgfilename + '.csv') as messagefile:
+            # Read data from csv file
+            lobdata = csv.reader(orderbookfile, delimiter=',')
+            messagedata = csv.reader(messagefile, delimiter=',')
+            # get first row
+            # data are read as list of strings
+            rowMES = next(messagedata)
+            rowLOB = next(lobdata)
+            # parse to float, extract bucket volumes only
+            currprofile = np.fromiter(rowLOB[1:(4 * num_levels_calc + 1):2], np.float)
+            time_file = float(rowMES[0])
+
+            for ctr_obs, time_stamp in enumerate(time_stamps):
+                if (time_stamp < time_file):
+                    # no update of volume in the file. Keep processes constant
+                    if (ctr_obs > 0):
+                        volume_bid[ctr_obs] = volume_bid[ctr_obs - 1]
+                        volume_ask[ctr_obs] = volume_ask[ctr_obs - 1]
+                    else:
+                        # so far no data available, raise warning and set processes to 0.
+                        warnings.warn(
+                            "Data do not contain beginning of the monitoring period. Values set to 0.",
+                            RuntimeWarning)
+                        volume_bid[ctr_obs] = 0.
+                        volume_ask[ctr_obs] = 0.
+                    continue
+
+                while (time_stamp >= time_file):
+                    # extract order volume from profile
+                    volume_bid[ctr_obs, :] = currprofile[1::2]
+                    volume_ask[ctr_obs, :] = currprofile[0::2]
+
+                    # read next line
+                    try:
+                        rowMES = next(messagedata)  # data are read as list of strings
+                        rowLOB = next(lobdata)
+                    except StopIteration:
+                        if (file_ended_line == num_observations):
+                            file_ended_line = ctr_obs
+                        break
+                    # update currprofile and time_file
+                    currprofile = np.fromiter(rowLOB[1:(4 * num_levels_calc + 1):2],
+                                              np.float)  # parse to integer, extract bucket volumes only
+                    time_file = float(rowMES[0])
+
+        if (file_ended_line < num_observations):
+            warnings.warn("End of file reached. Number of values constantly extrapolated: %i" % (
+                        num_observations - file_ended_line), RuntimeWarning)
+
+        return dt, time_stamps, volume_bid, volume_ask
+
 
     def _load_ordervolume(
             self,
